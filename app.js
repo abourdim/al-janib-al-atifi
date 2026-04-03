@@ -1,160 +1,1022 @@
-/* الجانب العاطفي من الإسلام — THE EMOTIONAL SIDE OF ISLAM — app.js */
+/* الجانب العاطفي من الإسلام — THE EMOTIONAL SIDE OF ISLAM — app.js v1.0 */
 /* Based on "Al-Janib al-Atifi min al-Islam" by Sheikh Mohammed al-Ghazali (1917-1996) */
 
+// ═══════════════ TRILINGUAL DATA ═══════════════
 const T = {
   ar: {
-    appTitle:'الجانب العاطفي من الإسلام', splashSub:'عاطفة المؤمن في ميزان الشرع', splashHint:'اضغط للتخطي',
-    tabHome:'الرئيسية', tabCards:'البطاقات', tabWisdom:'حكم عاطفية', tabHabits:'العادات', tabQuiz:'اختبار', tabAbout:'الكتاب',
-    cardsTitle:'الجانب العاطفي', cardsDesc:'٢٠ درساً عن العواطف في الإسلام — الحب والرحمة والفرح والحزن والأمل والخوف',
-    wisdomTitle:'حكم عاطفية', wisdomDesc:'كيف يوجّه الإسلام مشاعرنا نحو التوازن والسكينة',
-    habitsTitle:'عاداتي اليومية', habitsDesc:'عادات عاطفية مستوحاة من الكتاب', quizTitle:'اختبر ذكاءك العاطفي', quizDesc:'ما مدى توازن عواطفك الإسلامية؟',
-    helpTitle:'❓ مساعدة', duaPanelTitle:'🤲 أدعية المشاعر', resetBtn:'إعادة تعيين', submitQuiz:'اعرف النتيجة',
-    dailyLabel:'✨ عاطفة اليوم', quizAgain:'أعد الاختبار', share:'مشاركة', searchPlaceholder:'ابحث...', streakMsg:'يوم متتالي!', allDone:'أحسنت!',
-    splashFeatures:['٢٠ درساً في العواطف الإسلامية','حكم عاطفية مع حلول عملية','عادات يومية مع تتبع','اختبار ذكاء عاطفي + أدعية'],
+    appTitle: 'الجانب العاطفي من الإسلام',
+    splashSub: 'قلب المؤمن بين الحب والخشية',
+    splashHint: 'اضغط للتخطي',
+    sacredRef: 'سورة آل عمران ٣: ٣١',
+    tabHome: 'الرئيسية', tabTraits: 'المشاعر', tabQuiz: 'المسابقة',
+    tabProgress: 'تقدمي', tabAbout: 'الكتاب',
+    traitsTitle: 'مشاعر المؤمن',
+    traitsDesc: '١٥ عاطفة إسلامية من كتاب الشيخ محمد الغزالي — كل عاطفة بآية وحديث وتطبيق عملي',
+    quizTitle: '🏆 من سيصبح عالِماً؟',
+    quizDesc: 'اختبر ذكاءك العاطفي الإسلامي — ٤ خيارات لكل سؤال',
+    progressTitle: 'رحلتي العاطفية',
+    progressDesc: 'تقدمك وإنجازاتك في رحلة المشاعر',
+    helpTitle: '❓ مساعدة',
+    duaPanelTitle: '🤲 أدعية المشاعر',
+    dailyLabel: '✨ عاطفة اليوم',
+    searchPlaceholder: 'ابحث في المشاعر...',
+    share: 'مشاركة',
+    verse: 'الآية',
+    hadith: 'الحديث',
+    apply: '💡 طبّق الآن',
+    youngMode: '🌟 مستكشف صغير',
+    teenMode: '📖 باحث شاب',
+    xpLabel: 'نقاط الخبرة',
+    levelLabel: 'المستوى',
+    streakMsg: 'يوم متتالي!',
+    readMore: 'اقرأ المزيد',
+    nextQ: 'السؤال التالي',
+    lifeline5050: '50/50',
+    lifelineHint: '💡 تلميح',
+    lifelineQuran: '📖 مرجع قرآني',
+    correct: 'أحسنت! إجابة صحيحة! 🎉',
+    wrong: 'حاول مرة أخرى 💪',
+    quizComplete: 'انتهت المسابقة!',
+    score: 'النتيجة',
+    tryAgain: 'أعد المسابقة',
+    badge_beginner: 'مبتدئ',
+    badge_reader: 'قارئ',
+    badge_scholar: 'عالم',
+    badge_persistent: 'مثابر',
+    badge_expert: 'خبير',
+    splashFeatures: [
+      '١٥ عاطفة إسلامية من كتاب الجانب العاطفي',
+      'مسابقة "من سيصبح عالماً" بالمكافآت',
+      'نظام النقاط والشارات والمستويات',
+      'وضع مستكشف صغير ووضع باحث شاب'
+    ],
   },
   en: {
-    appTitle:'The Emotional Side of Islam', splashSub:'The believer\'s emotions in the balance of faith', splashHint:'tap to skip',
-    tabHome:'Home', tabCards:'Cards', tabWisdom:'Wisdom', tabHabits:'Habits', tabQuiz:'Quiz', tabAbout:'Book',
-    cardsTitle:'The Emotional Side', cardsDesc:'20 lessons on emotions in Islam — love, mercy, joy, grief, hope, fear, and balance',
-    wisdomTitle:'Emotional Wisdom', wisdomDesc:'How Islam guides our emotions toward balance and tranquility',
-    habitsTitle:'My Daily Habits', habitsDesc:'Emotional habits inspired by the book', quizTitle:'Test Your Emotional Intelligence', quizDesc:'How balanced are your Islamic emotions?',
-    helpTitle:'❓ Help', duaPanelTitle:'🤲 Duas for Emotions', resetBtn:'Reset Today', submitQuiz:'See Results',
-    dailyLabel:'✨ Today\'s Emotion', quizAgain:'Retake Quiz', share:'Share', searchPlaceholder:'Search...', streakMsg:'day streak!', allDone:'Well done!',
-    splashFeatures:['20 lessons on Islamic emotions','Emotional wisdom with practical solutions','Daily habits with tracking','Emotional intelligence quiz + duas'],
+    appTitle: 'The Emotional Side of Islam',
+    splashSub: "The believer's heart between love and awe",
+    splashHint: 'tap to skip',
+    sacredRef: 'Surah Al Imran 3:31',
+    tabHome: 'Home', tabTraits: 'Emotions', tabQuiz: 'Quiz',
+    tabProgress: 'Progress', tabAbout: 'Book',
+    traitsTitle: "The Believer's Emotions",
+    traitsDesc: "15 Islamic emotions from Sheikh al-Ghazali — each with a verse, hadith, and practical application",
+    quizTitle: '🏆 Who Wants to Be a Scholar?',
+    quizDesc: 'Test your Islamic emotional intelligence — 4 choices per question',
+    progressTitle: 'My Emotional Journey',
+    progressDesc: 'Your progress and achievements in the emotional journey',
+    helpTitle: '❓ Help',
+    duaPanelTitle: '🤲 Duas for the Heart',
+    dailyLabel: "✨ Today's Emotion",
+    searchPlaceholder: 'Search emotions...',
+    share: 'Share',
+    verse: 'Verse',
+    hadith: 'Hadith',
+    apply: '💡 Apply Now',
+    youngMode: '🌟 Young Explorer',
+    teenMode: '📖 Teen Scholar',
+    xpLabel: 'Experience Points',
+    levelLabel: 'Level',
+    streakMsg: 'day streak!',
+    readMore: 'Read More',
+    nextQ: 'Next Question',
+    lifeline5050: '50/50',
+    lifelineHint: '💡 Hint',
+    lifelineQuran: '📖 Quran Ref',
+    correct: 'Well done! Correct answer! 🎉',
+    wrong: 'Try again next time 💪',
+    quizComplete: 'Quiz Complete!',
+    score: 'Score',
+    tryAgain: 'Retry Quiz',
+    badge_beginner: 'Beginner',
+    badge_reader: 'Reader',
+    badge_scholar: 'Scholar',
+    badge_persistent: 'Persistent',
+    badge_expert: 'Expert',
+    splashFeatures: [
+      "15 Islamic emotions from The Emotional Side of Islam",
+      '"Who Wants to Be a Scholar?" quiz with rewards',
+      'Points, badges, and level system',
+      'Young Explorer and Teen Scholar modes'
+    ],
   },
   fr: {
-    appTitle:'Le C\u00f4t\u00e9 \u00c9motionnel de l\'Islam', splashSub:'Les \u00e9motions du croyant dans la balance de la foi', splashHint:'appuyez pour passer',
-    tabHome:'Accueil', tabCards:'Cartes', tabWisdom:'Sagesse', tabHabits:'Habitudes', tabQuiz:'Quiz', tabAbout:'Livre',
-    cardsTitle:'Le C\u00f4t\u00e9 \u00c9motionnel', cardsDesc:'20 le\u00e7ons sur les \u00e9motions en Islam — amour, mis\u00e9ricorde, joie, chagrin, espoir et crainte',
-    wisdomTitle:'Sagesse \u00c9motionnelle', wisdomDesc:'Comment l\'Islam guide nos \u00e9motions vers l\'\u00e9quilibre et la tranquillit\u00e9',
-    habitsTitle:'Mes Habitudes', habitsDesc:'Habitudes \u00e9motionnelles inspir\u00e9es du livre', quizTitle:'Testez Votre Intelligence \u00c9motionnelle', quizDesc:'Vos \u00e9motions islamiques sont-elles \u00e9quilibr\u00e9es ?',
-    helpTitle:'❓ Aide', duaPanelTitle:'🤲 Duas des \u00c9motions', resetBtn:'R\u00e9initialiser', submitQuiz:'Voir les R\u00e9sultats',
-    dailyLabel:'✨ \u00c9motion du Jour', quizAgain:'Refaire', share:'Partager', searchPlaceholder:'Rechercher...', streakMsg:'jours cons\u00e9cutifs !', allDone:'Bravo !',
-    splashFeatures:['20 le\u00e7ons sur les \u00e9motions islamiques','Sagesse \u00e9motionnelle avec solutions pratiques','Habitudes quotidiennes avec suivi','Quiz d\'intelligence \u00e9motionnelle + duas'],
+    appTitle: "Le Cote Emotionnel de l'Islam",
+    splashSub: "Le coeur du croyant entre amour et crainte reverentielle",
+    splashHint: 'appuyez pour passer',
+    sacredRef: 'Sourate Al Imran 3:31',
+    tabHome: 'Accueil', tabTraits: 'Emotions', tabQuiz: 'Quiz',
+    tabProgress: 'Progres', tabAbout: 'Livre',
+    traitsTitle: 'Les Emotions du Croyant',
+    traitsDesc: "15 emotions islamiques du livre du Sheikh al-Ghazali — chacune avec un verset, un hadith et une application pratique",
+    quizTitle: '🏆 Qui Veut Devenir Savant ?',
+    quizDesc: "Testez votre intelligence emotionnelle islamique — 4 choix par question",
+    progressTitle: 'Mon Parcours Emotionnel',
+    progressDesc: 'Vos progres et realisations dans le parcours emotionnel',
+    helpTitle: '❓ Aide',
+    duaPanelTitle: '🤲 Duas pour le Coeur',
+    dailyLabel: "✨ Emotion du Jour",
+    searchPlaceholder: 'Rechercher les emotions...',
+    share: 'Partager',
+    verse: 'Verset',
+    hadith: 'Hadith',
+    apply: '💡 Appliquez Maintenant',
+    youngMode: '🌟 Jeune Explorateur',
+    teenMode: '📖 Jeune Chercheur',
+    xpLabel: "Points d'Experience",
+    levelLabel: 'Niveau',
+    streakMsg: 'jours consecutifs !',
+    readMore: 'Lire Plus',
+    nextQ: 'Question Suivante',
+    lifeline5050: '50/50',
+    lifelineHint: '💡 Indice',
+    lifelineQuran: '📖 Ref. Coran',
+    correct: 'Bravo ! Bonne reponse ! 🎉',
+    wrong: 'Reessayez la prochaine fois 💪',
+    quizComplete: 'Quiz Termine !',
+    score: 'Score',
+    tryAgain: 'Refaire le Quiz',
+    badge_beginner: 'Debutant',
+    badge_reader: 'Lecteur',
+    badge_scholar: 'Savant',
+    badge_persistent: 'Perseverant',
+    badge_expert: 'Expert',
+    splashFeatures: [
+      "15 emotions islamiques du livre Le Cote Emotionnel de l'Islam",
+      'Quiz « Qui Veut Devenir Savant ? » avec recompenses',
+      'Systeme de points, badges et niveaux',
+      'Modes Jeune Explorateur et Jeune Chercheur'
+    ],
   }
 };
 
-const CARDS = [
-  {id:1,emoji:'❤️',ar:{title:'الحب في العبادة',desc:'العبادة بلا حب طقوس جامدة. المسلم يعبد الله حباً وشوقاً لا خوفاً فقط. الحب هو الوقود الذي يحرّك العبادة.',verse:'وَالَّذِينَ آمَنُوا أَشَدُّ حُبًّا لِّلَّهِ',verseRef:'سورة البقرة ٢: ١٦٥',action:'في صلاتك القادمة، استحضر حبك لله وشوقك للقائه'},en:{title:'Love in Worship',desc:'Worship without love is empty ritual. A Muslim worships God out of love and longing, not just fear. Love is the fuel that drives worship.',verse:'Those who believe are strongest in love for Allah',verseRef:'Surah Al-Baqarah 2:165',action:'In your next prayer, feel your love for God and longing to meet Him'},fr:{title:'L\'Amour dans l\'Adoration',desc:'L\'adoration sans amour est un rituel vide. Le musulman adore Dieu par amour et d\u00e9sir, pas seulement par crainte.',verse:'Ceux qui croient ont le plus d\'amour pour Allah',verseRef:'Sourate Al-Baqarah 2:165',action:'Dans votre prochaine pri\u00e8re, ressentez votre amour pour Dieu'}},
-  {id:2,emoji:'🤗',ar:{title:'الرحمة أساس الإسلام',desc:'الرحمة هي جوهر الإسلام. الله رحمن رحيم، والنبي ﷺ أُرسل رحمة للعالمين. المسلم يجب أن يكون رحيماً في كل تعاملاته.',verse:'وَمَا أَرْسَلْنَاكَ إِلَّا رَحْمَةً لِّلْعَالَمِينَ',verseRef:'سورة الأنبياء ٢١: ١٠٧',action:'تعامل اليوم مع كل شخص بلطف ورحمة — حتى من يضايقك'},en:{title:'Mercy: The Foundation of Islam',desc:'Mercy is the essence of Islam. God is the Most Merciful, and the Prophet ﷺ was sent as a mercy to all worlds. A Muslim must be merciful in all dealings.',verse:'We have not sent you except as a mercy to the worlds',verseRef:'Surah Al-Anbiya 21:107',action:'Treat everyone today with kindness and mercy — even those who annoy you'},fr:{title:'La Mis\u00e9ricorde : Fondement de l\'Islam',desc:'La mis\u00e9ricorde est l\'essence de l\'Islam. Dieu est le Tout Mis\u00e9ricordieux, et le Proph\u00e8te ﷺ a \u00e9t\u00e9 envoy\u00e9 comme mis\u00e9ricorde pour les mondes.',verse:'Nous ne t\'avons envoy\u00e9 que comme mis\u00e9ricorde pour les mondes',verseRef:'Sourate Al-Anbiya 21:107',action:'Traitez tout le monde avec bont\u00e9 et mis\u00e9ricorde aujourd\'hui'}},
-  {id:3,emoji:'😊',ar:{title:'الفرح المشروع',desc:'الإسلام لا يحرّم الفرح بل يشجعه. الفرح بنعم الله عبادة. المؤمن يفرح بالعيد والزواج والنجاح شكراً لله.',verse:'قُلْ بِفَضْلِ اللَّهِ وَبِرَحْمَتِهِ فَبِذَٰلِكَ فَلْيَفْرَحُوا',verseRef:'سورة يونس ١٠: ٥٨',action:'ابتسم اليوم وأدخل السرور على قلب شخص واحد على الأقل'},en:{title:'Legitimate Joy',desc:'Islam does not forbid joy but encourages it. Rejoicing in God\'s blessings is worship. A believer celebrates Eid, marriage, and success in gratitude to God.',verse:'Say: In the bounty of Allah and in His mercy — in that let them rejoice',verseRef:'Surah Yunus 10:58',action:'Smile today and bring joy to at least one person\'s heart'},fr:{title:'La Joie L\u00e9gitime',desc:'L\'Islam n\'interdit pas la joie mais l\'encourage. Se r\u00e9jouir des bienfaits de Dieu est une adoration.',verse:'Dis : De la gr\u00e2ce d\'Allah et de Sa mis\u00e9ricorde, voil\u00e0 de quoi ils devraient se r\u00e9jouir',verseRef:'Sourate Yunus 10:58',action:'Souriez aujourd\'hui et apportez de la joie \u00e0 au moins une personne'}},
-  {id:4,emoji:'😢',ar:{title:'الحزن والبكاء',desc:'البكاء ليس ضعفاً في الإسلام. النبي ﷺ بكى عند موت ابنه إبراهيم وقال: "إن العين تدمع والقلب يحزن". الحزن المعتدل إنساني وطبيعي.',verse:'إِنَّمَا أَشْكُو بَثِّي وَحُزْنِي إِلَى اللَّهِ',verseRef:'سورة يوسف ١٢: ٨٦',action:'إذا كنت حزيناً، لا تكتم حزنك — تحدث مع الله واطلب السكينة'},en:{title:'Grief and Crying',desc:'Crying is not weakness in Islam. The Prophet ﷺ cried when his son Ibrahim died and said: "The eyes shed tears and the heart grieves." Moderate grief is human and natural.',verse:'I only complain of my sorrow and grief to Allah',verseRef:'Surah Yusuf 12:86',action:'If you\'re sad, don\'t suppress it — talk to God and seek tranquility'},fr:{title:'Le Chagrin et les Larmes',desc:'Pleurer n\'est pas une faiblesse en Islam. Le Proph\u00e8te ﷺ a pleur\u00e9 \u00e0 la mort de son fils Ibrahim.',verse:'Je ne me plains de mon d\u00e9sarroi et de mon chagrin qu\'\u00e0 Allah',verseRef:'Sourate Yusuf 12:86',action:'Si vous \u00eates triste, ne refoulez pas — parlez \u00e0 Dieu et cherchez la tranquillit\u00e9'}},
-  {id:5,emoji:'🌟',ar:{title:'الأمل والتفاؤل',desc:'المسلم متفائل دائماً لأنه يعلم أن الله مع المحسنين. اليأس من رحمة الله كفر. التفاؤل عبادة.',verse:'وَلَا تَيْأَسُوا مِن رَّوْحِ اللَّهِ',verseRef:'سورة يوسف ١٢: ٨٧',action:'استبدل فكرة متشائمة واحدة اليوم بأخرى متفائلة'},en:{title:'Hope and Optimism',desc:'A Muslim is always optimistic because they know God is with the good-doers. Despair of God\'s mercy is disbelief. Optimism is worship.',verse:'Do not despair of the mercy of Allah',verseRef:'Surah Yusuf 12:87',action:'Replace one pessimistic thought today with an optimistic one'},fr:{title:'Espoir et Optimisme',desc:'Le musulman est toujours optimiste car il sait que Dieu est avec les bienfaisants. D\u00e9sesp\u00e9rer de la mis\u00e9ricorde de Dieu est m\u00e9cr\u00e9ance.',verse:'Ne d\u00e9sesp\u00e9rez pas de la mis\u00e9ricorde d\'Allah',verseRef:'Sourate Yusuf 12:87',action:'Remplacez une pens\u00e9e pessimiste par une pens\u00e9e optimiste'}},
-  {id:6,emoji:'🌙',ar:{title:'الخوف من الله والحب',desc:'الخوف من الله ليس رعباً بل خشية محب. كخوف الابن من إغضاب أبيه الحنون. الخوف والحب يتكاملان.',verse:'وَيَدْعُونَنَا رَغَبًا وَرَهَبًا',verseRef:'سورة الأنبياء ٢١: ٩٠',action:'عندما تخاف من ذنب، تذكر أن الله رحيم يحب التوابين'},en:{title:'Fear of God Balanced with Love',desc:'Fear of God is not terror but the reverence of a lover. Like a son fearing to upset his kind father. Fear and love complement each other.',verse:'They used to call upon Us in hope and fear',verseRef:'Surah Al-Anbiya 21:90',action:'When you fear sin, remember God is merciful and loves those who repent'},fr:{title:'Crainte de Dieu \u00c9quilibr\u00e9e par l\'Amour',desc:'La crainte de Dieu n\'est pas de la terreur mais la r\u00e9v\u00e9rence d\'un amoureux. Comme un fils craignant de d\u00e9plaire \u00e0 son p\u00e8re bienveillant.',verse:'Ils Nous invoquaient par d\u00e9sir et par crainte',verseRef:'Sourate Al-Anbiya 21:90',action:'Quand vous craignez le p\u00e9ch\u00e9, rappelez-vous que Dieu aime ceux qui se repentent'}},
-  {id:7,emoji:'💪',ar:{title:'الغضب المحمود',desc:'ليس كل غضب مذموماً. الغضب لله عند انتهاك حرماته مطلوب. لكن الغضب الشخصي يحتاج ضبطاً وتهذيباً.',verse:'وَالْكَاظِمِينَ الْغَيْظَ وَالْعَافِينَ عَنِ النَّاسِ',verseRef:'سورة آل عمران ٣: ١٣٤',action:'عندما تغضب، توقف وتنفس واسأل: هل غضبي لله أم لنفسي؟'},en:{title:'Righteous Anger',desc:'Not all anger is blameworthy. Anger for God\'s sake when His boundaries are violated is required. But personal anger needs control and refinement.',verse:'Those who restrain anger and pardon people',verseRef:'Surah Aal-Imran 3:134',action:'When angry, pause, breathe, and ask: is my anger for God or for myself?'},fr:{title:'Col\u00e8re Juste',desc:'Toute col\u00e8re n\'est pas bl\u00e2mable. La col\u00e8re pour Dieu quand Ses limites sont viol\u00e9es est requise. Mais la col\u00e8re personnelle n\u00e9cessite contr\u00f4le.',verse:'Ceux qui dominent leur rage et pardonnent aux gens',verseRef:'Sourate Aal-Imran 3:134',action:'Quand vous \u00eates en col\u00e8re, demandez : est-ce pour Dieu ou pour moi-m\u00eame ?'}},
-  {id:8,emoji:'🕊️',ar:{title:'السكينة والطمأنينة',desc:'السكينة نعمة ينزلها الله على قلوب المؤمنين. ليست غياب المشاكل بل السلام الداخلي رغم المشاكل.',verse:'هُوَ الَّذِي أَنزَلَ السَّكِينَةَ فِي قُلُوبِ الْمُؤْمِنِينَ',verseRef:'سورة الفتح ٤٨: ٤',action:'خصص ٥ دقائق اليوم للصمت والتأمل في نعم الله عليك'},en:{title:'Tranquility and Serenity',desc:'Tranquility is a blessing God sends to believers\' hearts. It\'s not the absence of problems but inner peace despite problems.',verse:'He sent down tranquility into the hearts of the believers',verseRef:'Surah Al-Fath 48:4',action:'Dedicate 5 minutes today to silence and reflecting on God\'s blessings'},fr:{title:'Tranquillit\u00e9 et S\u00e9r\u00e9nit\u00e9',desc:'La tranquillit\u00e9 est une b\u00e9n\u00e9diction que Dieu envoie aux c\u0153urs des croyants. Ce n\'est pas l\'absence de probl\u00e8mes mais la paix int\u00e9rieure malgr\u00e9 eux.',verse:'Il a fait descendre la qu\u00e9tude dans les c\u0153urs des croyants',verseRef:'Sourate Al-Fath 48:4',action:'Consacrez 5 minutes au silence et \u00e0 la r\u00e9flexion sur les bienfaits de Dieu'}},
-  {id:9,emoji:'🤝',ar:{title:'التعاطف والمواساة',desc:'المؤمن يشعر بألم الآخرين كأنه ألمه. الأمة كالجسد الواحد إذا اشتكى منه عضو تداعى له سائر الجسد.',verse:'وَتَعَاوَنُوا عَلَى الْبِرِّ وَالتَّقْوَىٰ',verseRef:'سورة المائدة ٥: ٢',action:'واسِ شخصاً يمر بمحنة اليوم — حتى لو بكلمة طيبة'},en:{title:'Empathy and Compassion',desc:'A believer feels others\' pain as their own. The ummah is like one body — if one part suffers, the whole body responds.',verse:'Cooperate in righteousness and piety',verseRef:'Surah Al-Ma\'idah 5:2',action:'Console someone going through hardship today — even with a kind word'},fr:{title:'Empathie et Compassion',desc:'Le croyant ressent la douleur des autres comme la sienne. La communaut\u00e9 est comme un seul corps.',verse:'Entraidez-vous dans la pi\u00e9t\u00e9 et la bienfaisance',verseRef:'Sourate Al-Ma\'idah 5:2',action:'R\u00e9confortez quelqu\'un en difficult\u00e9 aujourd\'hui — m\u00eame avec un mot gentil'}},
-  {id:10,emoji:'💞',ar:{title:'حب الله أولاً',desc:'حب الله يجب أن يكون فوق كل حب. من أحب الله وجد كل شيء، ومن فقد حب الله فقد كل شيء.',verse:'قُلْ إِن كُنتُمْ تُحِبُّونَ اللَّهَ فَاتَّبِعُونِي يُحْبِبْكُمُ اللَّهُ',verseRef:'سورة آل عمران ٣: ٣١',action:'قبل النوم، تأمل في حبك لله — هل هو أقوى من كل حب؟'},en:{title:'Loving God First',desc:'Love of God must be above all other loves. Whoever loves God finds everything, and whoever loses God\'s love loses everything.',verse:'Say: If you love Allah, follow me, and Allah will love you',verseRef:'Surah Aal-Imran 3:31',action:'Before sleep, reflect on your love for God — is it above all else?'},fr:{title:'Aimer Dieu en Premier',desc:'L\'amour de Dieu doit \u00eatre au-dessus de tout autre amour. Celui qui aime Dieu trouve tout.',verse:'Dis : Si vous aimez Allah, suivez-moi, et Allah vous aimera',verseRef:'Sourate Aal-Imran 3:31',action:'Avant de dormir, r\u00e9fl\u00e9chissez : votre amour pour Dieu est-il au-dessus de tout ?'}},
-  {id:11,emoji:'🌊',ar:{title:'الصبر عاطفة إيمانية',desc:'الصبر ليس جموداً عاطفياً بل قوة داخلية. الصابر يشعر بالألم لكنه لا يفقد إيمانه بحكمة الله.',verse:'إِنَّ اللَّهَ مَعَ الصَّابِرِينَ',verseRef:'سورة البقرة ٢: ١٥٣',action:'عندما تواجه صعوبة اليوم، قل: "إنا لله وإنا إليه راجعون"'},en:{title:'Patience: An Emotion of Faith',desc:'Patience is not emotional numbness but inner strength. The patient one feels pain but doesn\'t lose faith in God\'s wisdom.',verse:'Indeed, Allah is with the patient',verseRef:'Surah Al-Baqarah 2:153',action:'When facing difficulty today, say: "To God we belong and to Him we return"'},fr:{title:'La Patience : \u00c9motion de Foi',desc:'La patience n\'est pas l\'insensibilit\u00e9 mais la force int\u00e9rieure. Le patient ressent la douleur mais ne perd pas foi en la sagesse de Dieu.',verse:'Certes, Allah est avec les patients',verseRef:'Sourate Al-Baqarah 2:153',action:'Face \u00e0 une difficult\u00e9, dites : "\u00c0 Dieu nous appartenons et vers Lui nous retournons"'}},
-  {id:12,emoji:'🌹',ar:{title:'الحب بين الزوجين',desc:'الحب بين الزوجين آية من آيات الله. المودة والرحمة بينهما ليست ترفاً بل ضرورة شرعية.',verse:'وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً',verseRef:'سورة الروم ٣٠: ٢١',action:'عبّر لشريك حياتك عن حبك اليوم بكلمة أو فعل'},en:{title:'Love Between Spouses',desc:'Love between spouses is a sign of God. Affection and mercy between them is not a luxury but a divine necessity.',verse:'And He placed between you affection and mercy',verseRef:'Surah Ar-Rum 30:21',action:'Express your love to your partner today with a word or action'},fr:{title:'L\'Amour entre \u00c9poux',desc:'L\'amour entre \u00e9poux est un signe de Dieu. L\'affection et la mis\u00e9ricorde entre eux sont une n\u00e9cessit\u00e9 divine.',verse:'Et Il a mis entre vous affection et mis\u00e9ricorde',verseRef:'Sourate Ar-Rum 30:21',action:'Exprimez votre amour \u00e0 votre partenaire aujourd\'hui par un mot ou un geste'}},
-  {id:13,emoji:'👨‍👩‍👧‍👦',ar:{title:'عاطفة الوالدين',desc:'حنان الوالدين من أعظم العواطف. الإسلام أمر ببر الوالدين وجعله بعد عبادة الله مباشرة.',verse:'وَقَضَىٰ رَبُّكَ أَلَّا تَعْبُدُوا إِلَّا إِيَّاهُ وَبِالْوَالِدَيْنِ إِحْسَانًا',verseRef:'سورة الإسراء ١٧: ٢٣',action:'اتصل بوالديك اليوم وقل لهما كلمة حب'},en:{title:'Parental Love',desc:'Parental tenderness is among the greatest emotions. Islam commanded honoring parents right after worshipping God.',verse:'Your Lord has decreed that you worship none but Him and be good to parents',verseRef:'Surah Al-Isra 17:23',action:'Call your parents today and say a word of love'},fr:{title:'L\'Amour Parental',desc:'La tendresse parentale est parmi les plus grandes \u00e9motions. L\'Islam a ordonn\u00e9 d\'honorer les parents juste apr\u00e8s l\'adoration de Dieu.',verse:'Ton Seigneur a d\u00e9cr\u00e9t\u00e9 de n\'adorer que Lui et de bien traiter les parents',verseRef:'Sourate Al-Isra 17:23',action:'Appelez vos parents aujourd\'hui et dites-leur un mot d\'amour'}},
-  {id:14,emoji:'🤲',ar:{title:'الخشوع والتأثر',desc:'الخشوع هو تأثر القلب بعظمة الله. عندما يقشعر الجلد من سماع القرآن فهذا من علامات الإيمان.',verse:'تَقْشَعِرُّ مِنْهُ جُلُودُ الَّذِينَ يَخْشَوْنَ رَبَّهُمْ',verseRef:'سورة الزمر ٣٩: ٢٣',action:'اقرأ سورة الرحمن اليوم بتدبر وخشوع'},en:{title:'Reverence and Being Moved',desc:'Reverence is the heart being moved by God\'s greatness. When skin shivers from hearing the Quran, it is a sign of faith.',verse:'Their skins shiver from it — those who fear their Lord',verseRef:'Surah Az-Zumar 39:23',action:'Read Surah Ar-Rahman today with contemplation and reverence'},fr:{title:'R\u00e9v\u00e9rence et \u00c9motion',desc:'La r\u00e9v\u00e9rence est le c\u0153ur touch\u00e9 par la grandeur de Dieu. Quand la peau frissonne en entendant le Coran, c\'est un signe de foi.',verse:'Leur peau en frissonne — ceux qui craignent leur Seigneur',verseRef:'Sourate Az-Zumar 39:23',action:'Lisez Sourate Ar-Rahman aujourd\'hui avec contemplation et r\u00e9v\u00e9rence'}},
-  {id:15,emoji:'🔥',ar:{title:'الحماس والهمة',desc:'الإسلام يحب الحماس في العبادة والعمل. المؤمن القوي خير من المؤمن الضعيف. الحماس عبادة.',verse:'وَسَارِعُوا إِلَىٰ مَغْفِرَةٍ مِّن رَّبِّكُمْ',verseRef:'سورة آل عمران ٣: ١٣٣',action:'ابدأ مشروعاً كنت تؤجله — بحماس وطاقة'},en:{title:'Enthusiasm and Motivation',desc:'Islam loves enthusiasm in worship and work. The strong believer is better than the weak one. Enthusiasm is worship.',verse:'And hasten to forgiveness from your Lord',verseRef:'Surah Aal-Imran 3:133',action:'Start a project you\'ve been postponing — with enthusiasm and energy'},fr:{title:'Enthousiasme et Motivation',desc:'L\'Islam aime l\'enthousiasme dans l\'adoration et le travail. Le croyant fort est meilleur que le faible.',verse:'Empressez-vous vers le pardon de votre Seigneur',verseRef:'Sourate Aal-Imran 3:133',action:'Commencez un projet que vous reportiez — avec enthousiasme et \u00e9nergie'}},
-  {id:16,emoji:'🌿',ar:{title:'الزهد والقناعة',desc:'القناعة ليست كسلاً بل رضا بما قسم الله مع السعي للأفضل. الزاهد غني القلب وإن قلّ ماله.',verse:'وَلَا تَمُدَّنَّ عَيْنَيْكَ إِلَىٰ مَا مَتَّعْنَا بِهِ أَزْوَاجًا مِّنْهُمْ',verseRef:'سورة طه ٢٠: ١٣١',action:'اكتب ٣ أشياء تملكها وتشكر الله عليها'},en:{title:'Contentment and Simplicity',desc:'Contentment is not laziness but satisfaction with God\'s decree while striving for better. The content heart is rich even with little wealth.',verse:'Do not extend your eyes toward what We have given others to enjoy',verseRef:'Surah Taha 20:131',action:'Write 3 things you own and are grateful for'},fr:{title:'Contentement et Simplicit\u00e9',desc:'Le contentement n\'est pas la paresse mais la satisfaction du d\u00e9cret de Dieu tout en s\'effor\u00e7ant.',verse:'Ne porte pas tes regards vers ce que Nous avons donn\u00e9 \u00e0 d\'autres',verseRef:'Sourate Taha 20:131',action:'\u00c9crivez 3 choses que vous poss\u00e9dez et dont vous remerciez Dieu'}},
-  {id:17,emoji:'😰',ar:{title:'القلق والتوكل',desc:'القلق مشاعر طبيعية لكن الإفراط فيه مرض. التوكل على الله هو الدواء — اعمل وتوكل ولا تقلق.',verse:'وَمَن يَتَوَكَّلْ عَلَى اللَّهِ فَهُوَ حَسْبُهُ',verseRef:'سورة الطلاق ٦٥: ٣',action:'حدد قلقاً واحداً يشغلك وفوّض أمره لله مع اتخاذ خطوة عملية'},en:{title:'Anxiety and Trust in God',desc:'Anxiety is natural but excess is illness. Trust in God is the cure — work, trust, and don\'t worry.',verse:'Whoever trusts in Allah, He is sufficient for them',verseRef:'Surah At-Talaq 65:3',action:'Identify one worry and entrust it to God while taking a practical step'},fr:{title:'Anxi\u00e9t\u00e9 et Confiance en Dieu',desc:'L\'anxi\u00e9t\u00e9 est naturelle mais l\'exc\u00e8s est une maladie. La confiance en Dieu est le rem\u00e8de.',verse:'Celui qui s\'en remet \u00e0 Allah, Il lui suffit',verseRef:'Sourate At-Talaq 65:3',action:'Identifiez un souci et confiez-le \u00e0 Dieu en prenant une mesure pratique'}},
-  {id:18,emoji:'🙏',ar:{title:'الشكر والامتنان',desc:'الشكر عاطفة تملأ القلب نوراً. من شكر الله زاده ومن كفر فإن عذابه شديد.',verse:'لَئِن شَكَرْتُمْ لَأَزِيدَنَّكُمْ',verseRef:'سورة إبراهيم ١٤: ٧',action:'قبل النوم، اذكر ٥ نعم وقل الحمد لله على كل واحدة'},en:{title:'Gratitude and Thankfulness',desc:'Gratitude is an emotion that fills the heart with light. Whoever is grateful, God increases them.',verse:'If you are grateful, I will increase you',verseRef:'Surah Ibrahim 14:7',action:'Before sleep, name 5 blessings and say Alhamdulillah for each'},fr:{title:'Gratitude et Reconnaissance',desc:'La gratitude est une \u00e9motion qui remplit le c\u0153ur de lumi\u00e8re. Celui qui est reconnaissant, Dieu l\'augmente.',verse:'Si vous \u00eates reconnaissants, Je vous augmenterai',verseRef:'Sourate Ibrahim 14:7',action:'Avant de dormir, nommez 5 bienfaits et dites Alhamdulillah pour chacun'}},
-  {id:19,emoji:'🌍',ar:{title:'حب الأمة والأخوة',desc:'المسلمون إخوة. الحب في الله من أوثق عرى الإيمان. المؤمن للمؤمن كالبنيان يشد بعضه بعضاً.',verse:'إِنَّمَا الْمُؤْمِنُونَ إِخْوَةٌ',verseRef:'سورة الحجرات ٤٩: ١٠',action:'تواصل مع أخ أو أخت في الله لم تتحدث معهم منذ فترة'},en:{title:'Love of the Ummah and Brotherhood',desc:'Muslims are brothers. Love for God\'s sake is the strongest bond of faith. Believers are like a building strengthening each other.',verse:'The believers are but brothers',verseRef:'Surah Al-Hujurat 49:10',action:'Reach out to a brother or sister you haven\'t spoken to in a while'},fr:{title:'Amour de la Communaut\u00e9 et Fraternit\u00e9',desc:'Les musulmans sont fr\u00e8res. L\'amour pour Dieu est le lien le plus fort de la foi.',verse:'Les croyants ne sont que des fr\u00e8res',verseRef:'Sourate Al-Hujurat 49:10',action:'Contactez un fr\u00e8re ou une s\u0153ur que vous n\'avez pas parl\u00e9 depuis longtemps'}},
-  {id:20,emoji:'⚖️',ar:{title:'التوازن العاطفي',desc:'الإسلام دين التوازن. لا إفراط في الفرح ولا إفراط في الحزن. المسلم يعيش بتوازن عاطفي يوجهه الإيمان.',verse:'وَكَذَٰلِكَ جَعَلْنَاكُمْ أُمَّةً وَسَطًا',verseRef:'سورة البقرة ٢: ١٤٣',action:'راجع مشاعرك اليوم — هل هي متوازنة أم مائلة لطرف؟'},en:{title:'Emotional Balance',desc:'Islam is the religion of balance. No excess in joy nor excess in grief. A Muslim lives with emotional balance guided by faith.',verse:'And thus We have made you a just nation',verseRef:'Surah Al-Baqarah 2:143',action:'Review your emotions today — are they balanced or leaning to one side?'},fr:{title:'\u00c9quilibre \u00c9motionnel',desc:'L\'Islam est la religion de l\'\u00e9quilibre. Pas d\'exc\u00e8s dans la joie ni dans le chagrin. Le musulman vit avec un \u00e9quilibre \u00e9motionnel guid\u00e9 par la foi.',verse:'Et ainsi Nous avons fait de vous une communaut\u00e9 du juste milieu',verseRef:'Sourate Al-Baqarah 2:143',action:'Revoyez vos \u00e9motions aujourd\'hui — sont-elles \u00e9quilibr\u00e9es ?'}}
+// ═══════════════ 15 EMOTIONAL CARDS DATA ═══════════════
+const TRAITS = [
+  {
+    id:1, emoji:'💖',
+    ar:{title:'الحب في العبادة',desc:'العبادة في الإسلام ليست طقوساً جافة بل علاقة حب بين العبد وربه. المؤمن يصلي لأنه يحب لقاء الله ويشتاق إلى مناجاته. الصلاة قرة عين المحب لا عبء على كتفه.',verse:'قُلْ إِنْ كُنْتُمْ تُحِبُّونَ اللَّهَ فَاتَّبِعُونِي يُحْبِبْكُمُ اللَّهُ',verseRef:'آل عمران ٣١',hadith:'جُعلت قرة عيني في الصلاة — رواه النسائي',action:'صلِّ اليوم ركعتين وأنت تستشعر أنك تقف أمام حبيبك — تحدث إلى الله بقلبك',young:'الله يحبك! وعندما تصلي فأنت تتحدث مع أحب واحد إليك 💖'},
+    en:{title:'Love in Worship',desc:'Worship in Islam is not dry ritual but a relationship of love between servant and Lord. The believer prays because they love meeting God and yearn for intimate conversation with Him. Prayer is the delight of the lover, not a burden on the shoulders.',verse:'Say: If you love Allah, then follow me, and Allah will love you',verseRef:'Al Imran 31',hadith:'The delight of my eyes was made in prayer — An-Nasai',action:'Pray two extra units today feeling you stand before your Beloved — speak to God with your heart',young:'Allah loves you! When you pray, you are talking to the One who loves you most 💖'},
+    fr:{title:"L'Amour dans l'Adoration",desc:"L'adoration en Islam n'est pas un rituel sec mais une relation d'amour entre le serviteur et son Seigneur. Le croyant prie parce qu'il aime rencontrer Dieu et aspire a Son dialogue intime. La priere est la joie de l'amoureux, pas un fardeau.",verse:"Dis : Si vous aimez Allah, suivez-moi, Allah vous aimera",verseRef:'Al Imran 31',hadith:'La douceur de mes yeux a ete placee dans la priere — An-Nasai',action:"Priez deux unites supplementaires aujourd'hui en sentant que vous etes devant votre Bien-Aime",young:"Allah t'aime ! Quand tu pries, tu parles a Celui qui t'aime le plus 💖"}
+  },
+  {
+    id:2, emoji:'🤲',
+    ar:{title:'الرحمة',desc:'الرحمة ليست ضعفاً بل هي جوهر الإسلام العاطفي. الله وصف نفسه بالرحمن الرحيم وجعل الرحمة فوق عرشه. المسلم الذي لا يرحم محروم من أعظم صفات الإيمان.',verse:'وَمَا أَرْسَلْنَاكَ إِلَّا رَحْمَةً لِلْعَالَمِينَ',verseRef:'الأنبياء ١٠٧',hadith:'الراحمون يرحمهم الرحمن — رواه الترمذي',action:'ارحم شخصاً اليوم: طفلاً صغيراً أو مسناً أو حيواناً — وتأمل كيف يلين قلبك',young:'كن رحيماً مع الجميع! حتى مع القطط والعصافير — الله يحب الرحماء 🤲'},
+    en:{title:'Mercy',desc:'Mercy is not weakness but the emotional core of Islam. Allah described Himself as the Most Merciful and placed mercy above His Throne. A Muslim who shows no mercy is deprived of the greatest quality of faith.',verse:'And We have not sent you except as a mercy to the worlds',verseRef:'Al-Anbiya 107',hadith:'The merciful are shown mercy by the Most Merciful — Tirmidhi',action:'Show mercy to someone today: a small child, an elderly person, or an animal — and notice how your heart softens',young:'Be merciful to everyone! Even to cats and birds — Allah loves the merciful 🤲'},
+    fr:{title:'La Misericorde',desc:"La misericorde n'est pas une faiblesse mais le coeur emotionnel de l'Islam. Allah S'est decrit comme le Tout Misericordieux et a place la misericorde au-dessus de Son Trone. Un musulman sans misericorde est prive de la plus grande qualite de la foi.",verse:"Et Nous ne t'avons envoye qu'en misericorde pour les mondes",verseRef:'Al-Anbiya 107',hadith:'Les misericordieux recevront la misericorde du Tout Misericordieux — Tirmidhi',action:"Montrez de la misericorde a quelqu'un aujourd'hui : un enfant, une personne agee ou un animal",young:"Sois misericordieux avec tout le monde ! Meme avec les chats et les oiseaux — Allah aime les misericordieux 🤲"}
+  },
+  {
+    id:3, emoji:'💝',
+    ar:{title:'الشفقة والحنان',desc:'الشفقة عاطفة تجعل قلبك يتألم لألم الآخرين. النبي كان أحن الناس وكان يبكي لبكاء الطفل في الصلاة فيخففها. الشفقة ليست مجرد شعور بل دافع للعمل والإغاثة.',verse:'ثُمَّ كَانَ مِنَ الَّذِينَ آمَنُوا وَتَوَاصَوْا بِالصَّبْرِ وَتَوَاصَوْا بِالْمَرْحَمَةِ',verseRef:'البلد ١٧',hadith:'مثل المؤمنين في توادهم كمثل الجسد الواحد إذا اشتكى منه عضو تداعى له سائر الجسد — متفق عليه',action:'اسأل شخصاً حزيناً اليوم: كيف حالك حقاً؟ واستمع إليه بكل قلبك',young:'إذا رأيت صديقاً حزيناً، اجلس بجانبه وقل له: أنا معك! هذه هي الشفقة 💝'},
+    en:{title:'Compassion and Tenderness',desc:'Compassion is an emotion that makes your heart ache for the pain of others. The Prophet was the most tender-hearted of people — he would shorten prayer upon hearing a child cry. Compassion is not just a feeling but a drive to act and help.',verse:'Then he was among those who believed and advised one another to patience and mercy',verseRef:'Al-Balad 17',hadith:'The believers in their mutual love are like one body — when one part aches, the whole body responds — Agreed upon',action:'Ask someone who looks sad today: how are you really? And listen to them with all your heart',young:'If you see a sad friend, sit beside them and say: I am with you! That is compassion 💝'},
+    fr:{title:'La Compassion et la Tendresse',desc:"La compassion est une emotion qui fait souffrir votre coeur pour la douleur des autres. Le Prophete etait le plus tendre des gens — il abreviait la priere en entendant un enfant pleurer. La compassion n'est pas qu'un sentiment mais un moteur d'action.",verse:'Puis il etait parmi ceux qui croyaient et se recommandaient la patience et la misericorde',verseRef:'Al-Balad 17',hadith:'Les croyants dans leur amour mutuel sont comme un seul corps — quand un membre souffre, tout le corps reagit — Unanimement reconnu',action:"Demandez a quelqu'un de triste aujourd'hui : comment vas-tu vraiment ? Ecoutez avec tout votre coeur",young:"Si tu vois un ami triste, assieds-toi a cote de lui et dis : je suis avec toi ! C'est ca la compassion 💝"}
+  },
+  {
+    id:4, emoji:'😊',
+    ar:{title:'الفرح والبهجة',desc:'الإسلام دين الفرح لا الكآبة. الله يحب أن يرى أثر نعمته على عبده. الابتسامة صدقة والفرح بنعم الله عبادة. من حرم نفسه الفرح المباح فقد ظلم نفسه.',verse:'قُلْ بِفَضْلِ اللَّهِ وَبِرَحْمَتِهِ فَبِذَلِكَ فَلْيَفْرَحُوا',verseRef:'يونس ٥٨',hadith:'تبسمك في وجه أخيك صدقة — رواه الترمذي',action:'ابتسم اليوم عشرين مرة على الأقل — وانشر الفرح حولك بكلمة طيبة',young:'ابتسم! الابتسامة هدية مجانية تجعل الجميع سعداء — والله يحب الفرحين 😊'},
+    en:{title:'Joy and Delight',desc:'Islam is a religion of joy, not gloom. Allah loves to see the effect of His blessings on His servant. A smile is charity and rejoicing in God is an act of worship. Whoever deprives themselves of permissible joy has wronged themselves.',verse:'Say: In the bounty of Allah and in His mercy, in that let them rejoice',verseRef:'Yunus 58',hadith:'Your smile in the face of your brother is an act of charity — Tirmidhi',action:'Smile at least twenty times today — and spread joy around you with a kind word',young:'Smile! A smile is a free gift that makes everyone happy — and Allah loves joyful people 😊'},
+    fr:{title:'La Joie et l\'Allegresse',desc:"L'Islam est une religion de joie, pas de morosite. Allah aime voir l'effet de Ses bienfaits sur Son serviteur. Le sourire est une charite et se rejouir en Dieu est un acte d'adoration. Celui qui se prive de joie licite se fait du tort.",verse:'Dis : C\'est par la grace d\'Allah et par Sa misericorde qu\'ils doivent se rejouir',verseRef:'Yunus 58',hadith:'Ton sourire au visage de ton frere est une charite — Tirmidhi',action:"Souriez au moins vingt fois aujourd'hui — et repandez la joie autour de vous",young:"Souris ! Le sourire est un cadeau gratuit qui rend tout le monde heureux — et Allah aime les joyeux 😊"}
+  },
+  {
+    id:5, emoji:'😢',
+    ar:{title:'الحزن والبكاء',desc:'الحزن عاطفة إنسانية لم يُنكرها الإسلام. النبي بكى على ابنه إبراهيم وقال: العين تدمع والقلب يحزن. الحزن المحمود هو الذي يقرّب من الله لا الذي يُبعد عن العمل.',verse:'وَتَوَلَّى عَنْهُمْ وَقَالَ يَا أَسَفَى عَلَى يُوسُفَ وَابْيَضَّتْ عَيْنَاهُ مِنَ الْحُزْنِ',verseRef:'يوسف ٨٤',hadith:'إن العين تدمع والقلب يحزن ولا نقول إلا ما يرضي ربنا — متفق عليه',action:'إذا شعرت بالحزن اليوم، لا تكتمه — عبّر عنه بالدعاء وتحدث مع من تثق به',young:'لا بأس أن تبكي! حتى النبي بكى. لكن بعد البكاء، تحدث مع الله وستشعر بالراحة 😢'},
+    en:{title:'Grief and Tears',desc:'Grief is a human emotion that Islam does not deny. The Prophet wept for his son Ibrahim and said: The eye sheds tears and the heart grieves. Praiseworthy grief is that which draws one closer to God, not that which paralyzes action.',verse:'And he turned away from them and said: How great is my grief for Yusuf! And his eyes became white from sadness',verseRef:'Yusuf 84',hadith:'The eye sheds tears and the heart grieves, and we say nothing except what pleases our Lord — Agreed upon',action:'If you feel sad today, do not suppress it — express it through supplication and speak to someone you trust',young:'It is okay to cry! Even the Prophet cried. But after crying, talk to Allah and you will feel better 😢'},
+    fr:{title:'Le Chagrin et les Larmes',desc:"Le chagrin est une emotion humaine que l'Islam ne nie pas. Le Prophete a pleure pour son fils Ibrahim en disant : L'oeil verse des larmes et le coeur s'attriste. Le chagrin louable est celui qui rapproche de Dieu, pas celui qui paralyse.",verse:"Il se detourna d'eux et dit : Que mon chagrin est grand pour Yusuf ! Et ses yeux blanchirent de tristesse",verseRef:'Yusuf 84',hadith:"L'oeil verse des larmes et le coeur s'attriste, et nous ne disons que ce qui plait a notre Seigneur — Unanimement reconnu",action:"Si vous etes triste aujourd'hui, ne le refoulez pas — exprimez-le par la priere et parlez a quelqu'un de confiance",young:"Ce n'est pas grave de pleurer ! Meme le Prophete a pleure. Mais apres, parle a Allah et tu te sentiras mieux 😢"}
+  },
+  {
+    id:6, emoji:'🌟',
+    ar:{title:'الرجاء والأمل',desc:'الرجاء في رحمة الله محرك القلب المؤمن. مهما أذنب المسلم فلا يقنط من رحمة الله. الأمل ليس تمنياً فارغاً بل هو ثقة بالله مع السعي والعمل.',verse:'قُلْ يَا عِبَادِيَ الَّذِينَ أَسْرَفُوا عَلَى أَنْفُسِهِمْ لَا تَقْنَطُوا مِنْ رَحْمَةِ اللَّهِ',verseRef:'الزمر ٥٣',hadith:'لو يعلم المؤمن ما عند الله من العقوبة ما طمع بجنته أحد ولو يعلم الكافر ما عند الله من الرحمة ما قنط من رحمته أحد — متفق عليه',action:'أعد إحياء أمل كنت قد تخليت عنه — وقل: مع الله كل شيء ممكن',young:'لا تفقد الأمل أبداً! الله أكبر من أي مشكلة — ودائماً بعد الليل يأتي الصباح 🌟'},
+    en:{title:'Hope and Expectation',desc:'Hope in God is the engine of the believing heart. No matter how much a Muslim sins, they never despair of God. Hope is not empty wishing but confident trust in God accompanied by effort and action.',verse:'Say: O My servants who have transgressed against themselves, do not despair of the mercy of Allah',verseRef:'Az-Zumar 53',hadith:'If the believer knew what punishment God has, no one would hope for His Paradise; and if the disbeliever knew what mercy God has, no one would despair — Agreed upon',action:'Revive a hope you had given up on — and say: with God, everything is possible',young:'Never lose hope! Allah is bigger than any problem — and morning always comes after night 🌟'},
+    fr:{title:"L'Espoir et l'Attente",desc:"L'espoir en Dieu est le moteur du coeur croyant. Peu importe les peches d'un musulman, il ne desespere jamais de la misericorde de Dieu. L'espoir n'est pas un souhait vide mais une confiance en Dieu accompagnee d'efforts.",verse:'Dis : O Mes serviteurs qui avez commis des exces, ne desesperez pas de la misericorde d\'Allah',verseRef:'Az-Zumar 53',hadith:"Si le croyant savait quel chatiment Dieu a, personne n'espererait Son Paradis ; et si le mecreant savait quelle misericorde Dieu a, personne n'en desespererait — Unanimement reconnu",action:"Ravivez un espoir que vous aviez abandonne — et dites : avec Dieu, tout est possible",young:"Ne perds jamais espoir ! Allah est plus grand que tout probleme — et le matin vient toujours apres la nuit 🌟"}
+  },
+  {
+    id:7, emoji:'🙏',
+    ar:{title:'الخشية المتوازنة',desc:'خشية الله ليست رعباً يشل الإنسان بل هي يقظة القلب الحبيب. الخشية الحقيقية توازن بين الخوف من عقاب الله والرجاء في رحمته. المؤمن يعبد الله بين جناحي الخوف والرجاء.',verse:'تَتَجَافَى جُنُوبُهُمْ عَنِ الْمَضَاجِعِ يَدْعُونَ رَبَّهُمْ خَوْفًا وَطَمَعًا',verseRef:'السجدة ١٦',hadith:'لو تعلمون ما أعلم لضحكتم قليلاً ولبكيتم كثيراً — متفق عليه',action:'تأمل الليلة قبل النوم: ما الذي يجعلني أخشى الله وأحبه في الوقت نفسه؟',young:'الله رحيم جداً لكنه أيضاً عظيم! اخشَه كما تخشى أن تُغضب أحبّ الناس إليك 🙏'},
+    en:{title:'Balanced Awe of God',desc:'Awe of God is not paralyzing terror but the wakefulness of a loving heart. True reverence balances fear of punishment with hope in mercy. The believer worships God between the two wings of fear and hope.',verse:'Their sides forsake their beds; they call upon their Lord in fear and hope',verseRef:'As-Sajdah 16',hadith:'If you knew what I know, you would laugh little and weep much — Agreed upon',action:'Reflect tonight before sleep: what makes me fear God and love Him at the same time?',young:'Allah is very Merciful but also very Great! Be in awe of Him like you would not want to upset someone you love most 🙏'},
+    fr:{title:'La Crainte Equilibree de Dieu',desc:"La crainte de Dieu n'est pas une terreur paralysante mais l'eveil d'un coeur aimant. La vraie crainte equilibre la peur du chatiment et l'espoir en la misericorde. Le croyant adore Dieu entre les deux ailes de la crainte et de l'espoir.",verse:'Leurs flancs s\'arrachent des lits ; ils invoquent leur Seigneur par crainte et par espoir',verseRef:'As-Sajdah 16',hadith:'Si vous saviez ce que je sais, vous ririez peu et pleureriez beaucoup — Unanimement reconnu',action:"Reflechissez ce soir avant de dormir : qu'est-ce qui me fait craindre Dieu et L'aimer en meme temps ?",young:"Allah est tres Misericordieux mais aussi tres Grand ! Crains-Le comme tu ne voudrais pas attrister celui que tu aimes le plus 🙏"}
+  },
+  {
+    id:8, emoji:'🧠',
+    ar:{title:'الذكاء العاطفي',desc:'الإسلام سبق علم النفس الحديث في تعليم الذكاء العاطفي. النبي كان يراعي مشاعر كل شخص ويخاطبه بما يناسبه. فهم مشاعرك ومشاعر الآخرين وإدارتها بحكمة هو من صميم الأدب النبوي.',verse:'فَبِمَا رَحْمَةٍ مِنَ اللَّهِ لِنْتَ لَهُمْ وَلَوْ كُنْتَ فَظًّا غَلِيظَ الْقَلْبِ لَانْفَضُّوا مِنْ حَوْلِكَ',verseRef:'آل عمران ١٥٩',hadith:'ليس منا من لم يرحم صغيرنا ويعرف شرف كبيرنا — رواه الترمذي',action:'راقب مشاعرك اليوم: سمّها (غضب، فرح، قلق) ثم اختر ردة فعل حكيمة',young:'تعلم أن تعرف مشاعرك! هل أنت سعيد أم حزين أم خائف؟ معرفة مشاعرك قوة عظمى 🧠'},
+    en:{title:'Emotional Intelligence',desc:'Islam preceded modern psychology in teaching emotional intelligence. The Prophet considered the feelings of every person and addressed them accordingly. Understanding your emotions and those of others, then managing them wisely, is at the heart of Prophetic manners.',verse:'It was by mercy from Allah that you were lenient with them. Had you been harsh and hard-hearted, they would have dispersed from around you',verseRef:'Al Imran 159',hadith:'He is not one of us who does not show mercy to our young and recognize the honor of our elders — Tirmidhi',action:'Monitor your emotions today: name them (anger, joy, worry) then choose a wise response',young:'Learn to know your feelings! Are you happy, sad, or scared? Knowing your feelings is a superpower 🧠'},
+    fr:{title:"L'Intelligence Emotionnelle",desc:"L'Islam a precede la psychologie moderne dans l'enseignement de l'intelligence emotionnelle. Le Prophete considerait les sentiments de chaque personne et s'adressait a chacun en consequence. Comprendre ses emotions et celles des autres, puis les gerer avec sagesse, est au coeur de l'ethique prophetique.",verse:'C\'est par une misericorde d\'Allah que tu as ete doux envers eux. Si tu avais ete rude et dur de coeur, ils se seraient disperses',verseRef:'Al Imran 159',hadith:"N'est pas des notres celui qui ne fait pas misericorde a nos petits et ne reconnait pas l'honneur de nos aines — Tirmidhi",action:"Surveillez vos emotions aujourd'hui : nommez-les (colere, joie, inquietude) puis choisissez une reponse sage",young:"Apprends a connaitre tes sentiments ! Es-tu heureux, triste ou effraye ? Connaitre tes sentiments est un super-pouvoir 🧠"}
+  },
+  {
+    id:9, emoji:'🕊️',
+    ar:{title:'الحياة العاطفية للنبي',desc:'النبي لم يكن جامداً بل كان أرقّ الناس قلباً. بكى على موت ابنه وضحك مع أصحابه وداعب الأطفال وسابق زوجته عائشة. كان يغضب للحق ويفرح للخير ويتأثر بجمال الطبيعة.',verse:'لَقَدْ جَاءَكُمْ رَسُولٌ مِنْ أَنْفُسِكُمْ عَزِيزٌ عَلَيْهِ مَا عَنِتُّمْ حَرِيصٌ عَلَيْكُمْ',verseRef:'التوبة ١٢٨',hadith:'كان النبي يضحك حتى تبدو نواجذه — رواه البخاري',action:'اقرأ اليوم موقفاً من السيرة النبوية يُظهر عاطفة النبي — وتأمل فيه',young:'النبي كان يلعب مع الأطفال ويضحك مع أصحابه! كان أحنّ واحد في العالم 🕊️'},
+    en:{title:"The Prophet's Emotional Life",desc:'The Prophet was not stoic but the most tender-hearted of all people. He wept for the death of his son, laughed with his companions, played with children, and raced with his wife Aisha. He was angered by injustice, joyed by good, and moved by the beauty of nature.',verse:'There has come to you a Messenger from among yourselves. Grievous to him is what you suffer; he is concerned for you',verseRef:'At-Tawbah 128',hadith:'The Prophet would laugh until his molars could be seen — Bukhari',action:'Read a story from the Prophetic biography today that shows his emotional side — and reflect on it',young:'The Prophet used to play with children and laugh with his friends! He was the kindest person in the world 🕊️'},
+    fr:{title:'La Vie Emotionnelle du Prophete',desc:"Le Prophete n'etait pas stoique mais le plus tendre des gens. Il a pleure la mort de son fils, ri avec ses compagnons, joue avec les enfants et fait la course avec son epouse Aicha. Il s'indignait de l'injustice, se rejouissait du bien et etait emu par la beaute de la nature.",verse:"Un Messager est venu a vous, de parmi vous-memes. Ce qui vous afflige lui est penible ; il est soucieux de vous",verseRef:'At-Tawbah 128',hadith:'Le Prophete riait au point que ses molaires apparaissaient — Bukhari',action:"Lisez aujourd'hui un recit de la biographie prophetique qui montre son cote emotionnel — et reflechissez-y",young:"Le Prophete jouait avec les enfants et riait avec ses amis ! Il etait la personne la plus gentille au monde 🕊️"}
+  },
+  {
+    id:10, emoji:'💧',
+    ar:{title:'دموع التقوى',desc:'البكاء من خشية الله علامة الإيمان الحي. عين تبكي من خشية الله لا تمسها النار. الدموع تطهر القلب وتغسل الذنوب وتقرّب العبد من ربه. ليس البكاء ضعفاً بل هو قوة الروح.',verse:'وَيَخِرُّونَ لِلْأَذْقَانِ يَبْكُونَ وَيَزِيدُهُمْ خُشُوعًا',verseRef:'الإسراء ١٠٩',hadith:'عينان لا تمسهما النار: عين بكت من خشية الله وعين باتت تحرس في سبيل الله — رواه الترمذي',action:'اقرأ القرآن الليلة بتدبر حتى يلين قلبك — وإن دمعت عيناك فقد ذقت حلاوة الإيمان',young:'عندما تقرأ القرآن وتشعر بشيء جميل في قلبك — هذا يعني أن قلبك حي ويحب الله 💧'},
+    en:{title:'Tears of Piety',desc:'Weeping from the awe of God is a sign of living faith. An eye that weeps from reverence of God will not be touched by fire. Tears purify the heart, wash away sins, and draw the servant closer to the Lord. Weeping is not weakness but the strength of the spirit.',verse:'And they fall upon their faces weeping, and it increases them in humble submission',verseRef:'Al-Isra 109',hadith:'Two eyes will not be touched by the Fire: an eye that wept from the fear of God and an eye that stood guard in the way of God — Tirmidhi',action:'Read Quran tonight with deep reflection until your heart softens — if your eyes tear up, you have tasted the sweetness of faith',young:'When you read Quran and feel something beautiful in your heart — that means your heart is alive and loves Allah 💧'},
+    fr:{title:'Les Larmes de Piete',desc:"Pleurer par crainte de Dieu est un signe de foi vivante. Un oeil qui pleure par reverence envers Dieu ne sera pas touche par le Feu. Les larmes purifient le coeur, lavent les peches et rapprochent le serviteur de son Seigneur. Pleurer n'est pas une faiblesse mais la force de l'ame.",verse:'Et ils tombent sur leurs faces en pleurant, et cela augmente leur humilite',verseRef:'Al-Isra 109',hadith:'Deux yeux ne seront pas touches par le Feu : un oeil qui a pleure par crainte de Dieu et un oeil qui a veille dans le sentier de Dieu — Tirmidhi',action:"Lisez le Coran ce soir avec reflexion profonde jusqu'a ce que votre coeur s'attendrisse",young:"Quand tu lis le Coran et que tu ressens quelque chose de beau dans ton coeur — cela signifie que ton coeur est vivant et aime Allah 💧"}
+  },
+  {
+    id:11, emoji:'😄',
+    ar:{title:'الضحك والمرح',desc:'الإسلام لا يحارب الضحك بل يوجهه. النبي كان يمزح ولا يقول إلا حقاً. المرح المعتدل يجدد النفس ويقوي الروابط بين الناس. لكن الإفراط في الضحك يميت القلب.',verse:'وَأَنَّهُ هُوَ أَضْحَكَ وَأَبْكَى',verseRef:'النجم ٤٣',hadith:'إني لأمزح ولا أقول إلا حقاً — رواه الترمذي',action:'امزح مع عائلتك اليوم مزحة لطيفة — لكن لا تجرح أحداً بكلامك',young:'المزاح اللطيف يسعد الناس! امزح مع عائلتك لكن لا تقل شيئاً يؤذي مشاعر أحد 😄'},
+    en:{title:'Laughter and Playfulness',desc:'Islam does not fight laughter but guides it. The Prophet would joke but never said anything untrue. Moderate playfulness renews the soul and strengthens bonds between people. But excessive laughter deadens the heart.',verse:'And that it is He who makes one laugh and weep',verseRef:'An-Najm 43',hadith:'I joke, but I only speak the truth — Tirmidhi',action:'Share a kind joke with your family today — but never hurt anyone with your words',young:'Kind joking makes people happy! Joke with your family but never say anything that hurts feelings 😄'},
+    fr:{title:'Le Rire et l\'Amusement',desc:"L'Islam ne combat pas le rire mais le guide. Le Prophete plaisantait sans jamais dire de mensonge. L'amusement modere renouvelle l'ame et renforce les liens entre les gens. Mais l'exces de rire tue le coeur.",verse:'Et que c\'est Lui qui fait rire et fait pleurer',verseRef:'An-Najm 43',hadith:'Je plaisante mais je ne dis que la verite — Tirmidhi',action:"Partagez une plaisanterie gentille avec votre famille aujourd'hui — mais ne blessez jamais personne",young:"Les blagues gentilles rendent les gens heureux ! Plaisante avec ta famille mais ne dis jamais rien qui blesse 😄"}
+  },
+  {
+    id:12, emoji:'🔥',
+    ar:{title:'إدارة الغضب',desc:'الغضب طاقة عاطفية ليست شريرة بذاتها — يمكن أن تكون غيرة على الحق. لكن الغضب الأعمى يدمر صاحبه والآخرين. القوي ليس من يصرع الناس بل من يملك نفسه عند الغضب.',verse:'وَالْكَاظِمِينَ الْغَيْظَ وَالْعَافِينَ عَنِ النَّاسِ',verseRef:'آل عمران ١٣٤',hadith:'ليس الشديد بالصُّرَعة إنما الشديد الذي يملك نفسه عند الغضب — متفق عليه',action:'عندما تغضب اليوم: توقف، تنفس بعمق ثلاث مرات، واذكر الله قبل أن تتكلم',young:'عندما تغضب: توقف! تنفس! عدّ حتى ١٠! ثم تحدث بهدوء — أنت بطل حقيقي 🔥'},
+    en:{title:'Managing Anger',desc:'Anger is emotional energy that is not evil in itself — it can be righteous indignation for truth. But blind anger destroys its owner and others. The truly strong person is not the wrestler but the one who controls themselves in anger.',verse:'Those who restrain anger and pardon people',verseRef:'Al Imran 134',hadith:'The strong person is not the wrestler, but the one who controls themselves in anger — Agreed upon',action:'When you feel angry today: stop, take three deep breaths, and remember God before you speak',young:'When you get angry: Stop! Breathe! Count to 10! Then speak calmly — you are a real hero 🔥'},
+    fr:{title:'La Gestion de la Colere',desc:"La colere est une energie emotionnelle qui n'est pas mauvaise en soi — elle peut etre une indignation juste pour la verite. Mais la colere aveugle detruit son proprietaire et les autres. Le vrai fort n'est pas le lutteur mais celui qui se maitrise dans la colere.",verse:'Ceux qui dominent leur colere et pardonnent aux gens',verseRef:'Al Imran 134',hadith:"Le fort n'est pas le lutteur, mais celui qui se maitrise dans la colere — Unanimement reconnu",action:"Quand vous etes en colere aujourd'hui : arretez-vous, respirez trois fois profondement, et rappelez-vous Dieu avant de parler",young:"Quand tu es en colere : Arrete ! Respire ! Compte jusqu'a 10 ! Puis parle calmement — tu es un vrai heros 🔥"}
+  },
+  {
+    id:13, emoji:'🌻',
+    ar:{title:'الشكر والامتنان',desc:'الشكر ليس مجرد كلمة بل عاطفة عميقة تملأ القلب بالسكينة. الشاكر يرى النعم في كل مكان والجاحد لا يرى إلا ما ينقصه. الشكر يزيد النعم ويطرد الهم.',verse:'لَئِنْ شَكَرْتُمْ لَأَزِيدَنَّكُمْ',verseRef:'إبراهيم ٧',hadith:'انظروا إلى من هو أسفل منكم ولا تنظروا إلى من هو فوقكم فهو أجدر ألا تزدروا نعمة الله — متفق عليه',action:'اكتب خمس نعم تشكر الله عليها الآن — وقل الحمد لله بكل قلبك',young:'قل الحمد لله! اكتب ثلاثة أشياء جميلة عندك — ستكتشف أنك غني بنعم الله 🌻'},
+    en:{title:'Gratitude',desc:'Gratitude is not just a word but a deep emotion that fills the heart with serenity. The grateful person sees blessings everywhere while the ungrateful sees only what they lack. Gratitude multiplies blessings and dispels anxiety.',verse:'If you are grateful, I will surely increase you',verseRef:'Ibrahim 7',hadith:'Look at those below you and do not look at those above you, for that will prevent you from belittling the blessings of Allah — Agreed upon',action:'Write five blessings you are grateful for right now — and say Alhamdulillah from all your heart',young:'Say Alhamdulillah! Write three beautiful things you have — you will discover you are rich with blessings 🌻'},
+    fr:{title:'La Gratitude',desc:"La gratitude n'est pas qu'un mot mais une emotion profonde qui remplit le coeur de serenite. Le reconnaissant voit les bienfaits partout tandis que l'ingrat ne voit que ce qui lui manque. La gratitude multiplie les bienfaits et chasse l'anxiete.",verse:'Si vous etes reconnaissants, Je vous augmenterai certainement',verseRef:'Ibrahim 7',hadith:"Regardez ceux qui sont en dessous de vous et non ceux qui sont au-dessus, c'est mieux pour ne pas mepriser les bienfaits d'Allah — Unanimement reconnu",action:"Ecrivez cinq bienfaits dont vous etes reconnaissants maintenant — et dites Alhamdulillah de tout coeur",young:"Dis Alhamdulillah ! Ecris trois belles choses que tu as — tu decouvriras que tu es riche en bienfaits 🌻"}
+  },
+  {
+    id:14, emoji:'🌙',
+    ar:{title:'الشوق إلى الله',desc:'الشوق إلى الله أعذب العواطف وأنقاها. هو شعور الروح التي تعرف أنها غريبة في هذا العالم وتتوق للعودة إلى ربها. العبادة بالشوق أعلى مراتب العبادة.',verse:'يَا أَيَّتُهَا النَّفْسُ الْمُطْمَئِنَّةُ ارْجِعِي إِلَى رَبِّكِ رَاضِيَةً مَرْضِيَّةً',verseRef:'الفجر ٢٧-٢٨',hadith:'من أحب لقاء الله أحب الله لقاءه — متفق عليه',action:'اجلس وحدك الليلة خمس دقائق في سكون وتأمل في عظمة الله — واشتق إلى لقائه',young:'الله ينتظرك دائماً! عندما تتحدث معه في الدعاء فأنت قريب منه جداً 🌙'},
+    en:{title:'Longing for God',desc:'Longing for God is the sweetest and purest of all emotions. It is the feeling of a soul that knows it is a stranger in this world and yearns to return to its Lord. Worship driven by longing is the highest form of worship.',verse:'O tranquil soul, return to your Lord, pleased and pleasing',verseRef:'Al-Fajr 27-28',hadith:'Whoever loves to meet Allah, Allah loves to meet them — Agreed upon',action:'Sit alone tonight for five minutes in silence and contemplate the greatness of God — and yearn for His meeting',young:'Allah is always waiting for you! When you talk to Him in dua, you are very close to Him 🌙'},
+    fr:{title:'La Nostalgie de Dieu',desc:"La nostalgie de Dieu est la plus douce et la plus pure de toutes les emotions. C'est le sentiment d'une ame qui sait qu'elle est etrangere dans ce monde et aspire a retourner a son Seigneur. L'adoration motivee par la nostalgie est la plus haute forme d'adoration.",verse:'O ame apaisee, retourne vers ton Seigneur, satisfaite et agreee',verseRef:'Al-Fajr 27-28',hadith:'Celui qui aime rencontrer Allah, Allah aime le rencontrer — Unanimement reconnu',action:"Asseyez-vous seul ce soir cinq minutes en silence et contemplez la grandeur de Dieu — et aspirez a Sa rencontre",young:"Allah t'attend toujours ! Quand tu Lui parles dans le dua, tu es tres proche de Lui 🌙"}
+  },
+  {
+    id:15, emoji:'🌸',
+    ar:{title:'الرفق واللين',desc:'الرفق زينة كل شيء والعنف شين كل شيء. الإسلام يدعو إلى اللين في التعامل والرفق بالضعيف والحنان على الصغير. القلب القاسي بعيد عن الله مهما كثرت عبادته.',verse:'فَبِمَا رَحْمَةٍ مِنَ اللَّهِ لِنْتَ لَهُمْ',verseRef:'آل عمران ١٥٩',hadith:'إن الله رفيق يحب الرفق ويعطي على الرفق ما لا يعطي على العنف — رواه مسلم',action:'عامل كل شخص تقابله اليوم بلطف — حتى من يزعجك — وانظر كيف يتغير الجو',young:'كن لطيفاً مع الجميع! الكلمة الطيبة واللمسة الحنونة تصنع المعجزات 🌸'},
+    en:{title:'Gentleness and Tenderness',desc:'Gentleness adorns everything and violence disgraces everything. Islam calls for softness in dealing with others, tenderness toward the weak, and affection for the young. A hard heart is far from God no matter how much it worships.',verse:'It was by mercy from Allah that you were lenient with them',verseRef:'Al Imran 159',hadith:'Allah is Gentle and loves gentleness, and He gives for gentleness what He does not give for harshness — Muslim',action:'Treat everyone you meet today with kindness — even those who annoy you — and see how the atmosphere changes',young:'Be kind to everyone! A kind word and a gentle touch can work wonders 🌸'},
+    fr:{title:'La Douceur et la Tendresse',desc:"La douceur embellit tout et la violence enlaidit tout. L'Islam appelle a la douceur dans les relations, la tendresse envers les faibles et l'affection pour les petits. Un coeur dur est loin de Dieu peu importe ses adorations.",verse:'C\'est par une misericorde d\'Allah que tu as ete doux envers eux',verseRef:'Al Imran 159',hadith:'Allah est Doux et aime la douceur, et Il donne pour la douceur ce qu\'Il ne donne pas pour la brutalite — Muslim',action:"Traitez chaque personne que vous rencontrez aujourd'hui avec gentillesse — meme ceux qui vous ennuient",young:"Sois gentil avec tout le monde ! Un mot gentil et un geste tendre peuvent faire des miracles 🌸"}
+  }
 ];
 
-const WISDOM_DATA = [
-  {emoji:'❤️',ar:{title:'الحب يصنع المعجزات',text:'المحبة لله تجعل العبادة لذة',problem:'نعبد الله بلا شعور — كأداء واجب ثقيل',solution:'استشعر حب الله وكرمه — العبادة ستتحول إلى متعة'},en:{title:'Love Creates Miracles',text:'Love for God makes worship a pleasure',problem:'We worship God without feeling — like a heavy duty',solution:'Feel God\'s love and generosity — worship will become enjoyment'},fr:{title:'L\'Amour Cr\u00e9e des Miracles',text:'L\'amour de Dieu rend l\'adoration un plaisir',problem:'Nous adorons Dieu sans sentiment — comme un devoir lourd',solution:'Ressentez l\'amour de Dieu — l\'adoration deviendra un plaisir'}},
-  {emoji:'😌',ar:{title:'الرضا مفتاح السعادة',text:'الراضي عن الله سعيد في كل حال',problem:'نشتكي دائماً ولا نرضى بما عندنا',solution:'انظر لمن هو أقل منك في الدنيا وأكثر منك في الدين'},en:{title:'Contentment is the Key to Happiness',text:'One content with God is happy in all states',problem:'We always complain and are never satisfied',solution:'Look at those with less worldly things and more in faith'},fr:{title:'Le Contentement est la Cl\u00e9 du Bonheur',text:'Celui qui est content de Dieu est heureux en tout \u00e9tat',problem:'Nous nous plaignons toujours et ne sommes jamais satisfaits',solution:'Regardez ceux qui ont moins et plus dans la foi'}},
-  {emoji:'🌊',ar:{title:'الحزن المثمر',text:'الحزن الذي يقربك من الله نعمة',problem:'الحزن يبعدنا عن الله ويدخلنا في اليأس',solution:'حوّل حزنك إلى دعاء ولجوء إلى الله — الحزن سيصبح قرباً'},en:{title:'Fruitful Grief',text:'Grief that brings you closer to God is a blessing',problem:'Grief drives us from God and into despair',solution:'Turn your grief into dua and refuge in God — grief becomes closeness'},fr:{title:'Chagrin Fructueux',text:'Le chagrin qui vous rapproche de Dieu est une b\u00e9n\u00e9diction',problem:'Le chagrin nous \u00e9loigne de Dieu et nous m\u00e8ne au d\u00e9sespoir',solution:'Transformez votre chagrin en dua — il deviendra proximit\u00e9'}},
-  {emoji:'🌟',ar:{title:'التفاؤل قوة',text:'المتفائل يرى النور في أحلك الظلمات',problem:'التشاؤم يسيطر علينا في المحن',solution:'تذكر أن بعد كل عسر يسراً — وأن الفرج قريب'},en:{title:'Optimism is Power',text:'The optimist sees light in the darkest darkness',problem:'Pessimism controls us in hardships',solution:'Remember after every hardship comes ease — relief is near'},fr:{title:'L\'Optimisme est Puissance',text:'L\'optimiste voit la lumi\u00e8re dans les t\u00e9n\u00e8bres les plus sombres',problem:'Le pessimisme nous contr\u00f4le dans les \u00e9preuves',solution:'Rappelez-vous qu\'apr\u00e8s chaque difficult\u00e9 vient la facilit\u00e9'}},
-  {emoji:'💝',ar:{title:'الرحمة تشفي',text:'الرحمة تشفي القلوب المكسورة',problem:'قسوة القلب تبعدنا عن الناس وعن الله',solution:'تمرّن على الرحمة يومياً — ارحم صغيراً ووقّر كبيراً'},en:{title:'Mercy Heals',text:'Mercy heals broken hearts',problem:'Hardness of heart distances us from people and God',solution:'Practice mercy daily — be gentle with children and honor the elderly'},fr:{title:'La Mis\u00e9ricorde Gu\u00e9rit',text:'La mis\u00e9ricorde gu\u00e9rit les c\u0153urs bris\u00e9s',problem:'La duret\u00e9 du c\u0153ur nous \u00e9loigne des gens et de Dieu',solution:'Pratiquez la mis\u00e9ricorde quotidiennement — soyez doux avec les enfants'}}
-];
-
-const HABITS = [
-  {emoji:'❤️',ar:{label:'استحضار حب الله في الصلاة',source:'الجانب العاطفي'},en:{label:'Feel love for God in prayer',source:'The Emotional Side'},fr:{label:'Ressentir l\'amour de Dieu en pri\u00e8re',source:'Le C\u00f4t\u00e9 \u00c9motionnel'}},
-  {emoji:'😊',ar:{label:'ابتسم في وجه كل من تقابله',source:'السنة النبوية'},en:{label:'Smile at everyone you meet',source:'Prophetic Sunnah'},fr:{label:'Souriez \u00e0 tous ceux que vous rencontrez',source:'Sunnah proph\u00e9tique'}},
-  {emoji:'🤗',ar:{label:'قل كلمة طيبة لشخص',source:'الرحمة'},en:{label:'Say a kind word to someone',source:'Mercy'},fr:{label:'Dites un mot gentil \u00e0 quelqu\'un',source:'Mis\u00e9ricorde'}},
-  {emoji:'🙏',ar:{label:'اشكر الله على ٥ نعم',source:'الشكر'},en:{label:'Thank God for 5 blessings',source:'Gratitude'},fr:{label:'Remerciez Dieu pour 5 bienfaits',source:'Gratitude'}},
-  {emoji:'🕊️',ar:{label:'٥ دقائق صمت وتأمل',source:'السكينة'},en:{label:'5 minutes of silence and reflection',source:'Tranquility'},fr:{label:'5 minutes de silence et r\u00e9flexion',source:'Tranquillit\u00e9'}},
-  {emoji:'💞',ar:{label:'عبّر عن حبك لأهلك',source:'المودة'},en:{label:'Express love to your family',source:'Affection'},fr:{label:'Exprimez votre amour \u00e0 votre famille',source:'Affection'}},
-  {emoji:'🤝',ar:{label:'واسِ شخصاً محتاجاً',source:'التعاطف'},en:{label:'Console someone in need',source:'Empathy'},fr:{label:'Consolez quelqu\'un dans le besoin',source:'Empathie'}},
-  {emoji:'📖',ar:{label:'اقرأ صفحة من القرآن بتدبر',source:'الخشوع'},en:{label:'Read a Quran page with reflection',source:'Reverence'},fr:{label:'Lisez une page du Coran avec r\u00e9flexion',source:'R\u00e9v\u00e9rence'}},
-];
-
+// ═══════════════ QUIZ DATA (Who Wants to Be a Scholar?) ═══════════════
 const QUIZ = [
-  {ar:'هل تشعر بالحب لله في صلاتك؟',en:'Do you feel love for God in your prayers?',fr:'Ressentez-vous l\'amour de Dieu dans vos pri\u00e8res ?'},
-  {ar:'هل تفقد أملك بسرعة عند المحن؟',en:'Do you quickly lose hope during hardships?',fr:'Perdez-vous vite espoir pendant les \u00e9preuves ?'},
-  {ar:'هل تتعاطف مع الآخرين وتشعر بآلامهم؟',en:'Do you empathize with others and feel their pain?',fr:'Avez-vous de l\'empathie pour les autres ?'},
-  {ar:'هل تغضب كثيراً على أمور شخصية؟',en:'Do you get angry often over personal matters?',fr:'Vous mettez-vous souvent en col\u00e8re pour des choses personnelles ?'},
-  {ar:'هل تشكر الله على نعمه يومياً؟',en:'Do you thank God for His blessings daily?',fr:'Remerciez-vous Dieu pour Ses bienfaits quotidiennement ?'},
-  {ar:'هل تبتسم وتنشر السعادة حولك؟',en:'Do you smile and spread happiness around you?',fr:'Souriez-vous et r\u00e9pandez-vous le bonheur ?'},
-  {ar:'هل تعبّر عن حبك لأهلك بانتظام؟',en:'Do you regularly express love to your family?',fr:'Exprimez-vous r\u00e9guli\u00e8rement votre amour \u00e0 votre famille ?'},
-  {ar:'هل تخاف الله خوف محب لا خوف مرعوب؟',en:'Do you fear God with love, not terror?',fr:'Craignez-vous Dieu avec amour, pas terreur ?'},
-  {ar:'هل تتحكم في مشاعرك السلبية؟',en:'Do you control your negative emotions?',fr:'Contr\u00f4lez-vous vos \u00e9motions n\u00e9gatives ?'},
-  {ar:'هل تشعر بالسكينة والطمأنينة في حياتك؟',en:'Do you feel tranquility and serenity in your life?',fr:'Ressentez-vous la tranquillit\u00e9 et la s\u00e9r\u00e9nit\u00e9 dans votre vie ?'},
+  {
+    ar:{q:'في أي آية أمر الله المؤمنين باتباع النبي كدليل على حبهم لله؟',opts:['آل عمران ٣١','البقرة ١٦٥','المائدة ٥٤','التوبة ٢٤'],correct:0,hint:'هذه الآية تسمى آية المحبة',quran:'آل عمران ٣١'},
+    en:{q:'In which verse did Allah command believers to follow the Prophet as proof of their love for God?',opts:['Al Imran 31','Al-Baqarah 165','Al-Maidah 54','At-Tawbah 24'],correct:0,hint:'This verse is known as the Verse of Love',quran:'Al Imran 31'},
+    fr:{q:'Dans quel verset Allah a-t-Il ordonne aux croyants de suivre le Prophete comme preuve de leur amour pour Dieu ?',opts:['Al Imran 31','Al-Baqarah 165','Al-Maidah 54','At-Tawbah 24'],correct:0,hint:'Ce verset est connu comme le Verset de l\'Amour',quran:'Al Imran 31'}
+  },
+  {
+    ar:{q:'ماذا قال النبي عندما مات ابنه إبراهيم وهو يبكي؟',opts:['لا حول ولا قوة إلا بالله','إنا لله وإنا إليه راجعون','إن العين تدمع والقلب يحزن','استرجعوا يا أصحابي'],correct:2,hint:'هذا الحديث يجمع بين البكاء والرضا بقضاء الله',quran:'يوسف ٨٤'},
+    en:{q:'What did the Prophet say when his son Ibrahim died, while he was weeping?',opts:['There is no power except with Allah','To Allah we belong and to Him we return','The eye sheds tears and the heart grieves','Be patient, my companions'],correct:2,hint:'This hadith combines weeping with acceptance of God\'s decree',quran:'Yusuf 84'},
+    fr:{q:'Qu\'a dit le Prophete quand son fils Ibrahim est mort, alors qu\'il pleurait ?',opts:['Il n\'y a de force qu\'en Allah','Nous sommes a Allah et a Lui nous retournons','L\'oeil verse des larmes et le coeur s\'attriste','Soyez patients, mes compagnons'],correct:2,hint:'Ce hadith combine les pleurs avec l\'acceptation du decret divin',quran:'Yusuf 84'}
+  },
+  {
+    ar:{q:'من الذي قال عنه القرآن إنه ابيضت عيناه من الحزن؟',opts:['النبي محمد','النبي أيوب','النبي يعقوب','النبي نوح'],correct:2,hint:'حزن على فقد ابنه الحبيب',quran:'يوسف ٨٤'},
+    en:{q:'Whose eyes turned white from sadness according to the Quran?',opts:['Prophet Muhammad','Prophet Ayyub','Prophet Yaqub','Prophet Nuh'],correct:2,hint:'He grieved the loss of his beloved son',quran:'Yusuf 84'},
+    fr:{q:'De qui le Coran dit que ses yeux ont blanchi de tristesse ?',opts:['Le Prophete Muhammad','Le Prophete Ayyub','Le Prophete Yaqub','Le Prophete Nuh'],correct:2,hint:'Il a pleure la perte de son fils bien-aime',quran:'Yusuf 84'}
+  },
+  {
+    ar:{q:'أكمل الحديث: "ليس الشديد بالصُّرَعة إنما الشديد الذي يملك نفسه عند ..."',opts:['الحزن','الفرح','الغضب','الخوف'],correct:2,hint:'هذا الحديث يتعلق بإدارة عاطفة سلبية',quran:'آل عمران ١٣٤'},
+    en:{q:'Complete the hadith: "The strong person is not the wrestler, but the one who controls themselves in ..."',opts:['Sadness','Joy','Anger','Fear'],correct:2,hint:'This hadith is about managing a negative emotion',quran:'Al Imran 134'},
+    fr:{q:'Completez le hadith : « Le fort n\'est pas le lutteur, mais celui qui se maitrise dans la ... »',opts:['La tristesse','La joie','La colere','La peur'],correct:2,hint:'Ce hadith concerne la gestion d\'une emotion negative',quran:'Al Imran 134'}
+  },
+  {
+    ar:{q:'ما هي العاطفة التي وصفها القرآن بقوله "فَبِذَلِكَ فَلْيَفْرَحُوا"؟',opts:['الرجاء','الحب','الفرح','الشوق'],correct:2,hint:'الله يأمر بهذه العاطفة عند تلقي النعم',quran:'يونس ٥٨'},
+    en:{q:'Which emotion did the Quran describe by saying "in that let them rejoice"?',opts:['Hope','Love','Joy','Longing'],correct:2,hint:'God commands this emotion when receiving blessings',quran:'Yunus 58'},
+    fr:{q:'Quelle emotion le Coran a-t-il decrite en disant « qu\'ils doivent se rejouir » ?',opts:['L\'espoir','L\'amour','La joie','La nostalgie'],correct:2,hint:'Dieu ordonne cette emotion a la reception des bienfaits',quran:'Yunus 58'}
+  },
+  {
+    ar:{q:'أكمل الآية: "قُلْ يَا عِبَادِيَ الَّذِينَ أَسْرَفُوا عَلَى أَنْفُسِهِمْ لَا ..."',opts:['تحزنوا','تقنطوا من رحمة الله','تيأسوا','تخافوا'],correct:1,hint:'هذه الآية تتعلق بعاطفة الرجاء',quran:'الزمر ٥٣'},
+    en:{q:'Complete the verse: "Say: O My servants who have transgressed, do not ..."',opts:['Grieve','Despair of the mercy of Allah','Lose hope','Be afraid'],correct:1,hint:'This verse is about the emotion of hope',quran:'Az-Zumar 53'},
+    fr:{q:'Completez le verset : « Dis : O Mes serviteurs qui avez commis des exces, ne ... »',opts:['Soyez tristes','Desesperez pas de la misericorde d\'Allah','Perdez pas espoir','Ayez pas peur'],correct:1,hint:'Ce verset concerne l\'emotion de l\'espoir',quran:'Az-Zumar 53'}
+  },
+  {
+    ar:{q:'ما الذي جُعل "قرة عين" النبي كما في الحديث؟',opts:['الصيام','الصلاة','قراءة القرآن','الصدقة'],correct:1,hint:'هذا الحديث يربط العبادة بعاطفة الحب',quran:'آل عمران ٣١'},
+    en:{q:'What was made "the delight of the eyes" of the Prophet according to hadith?',opts:['Fasting','Prayer','Reading Quran','Charity'],correct:1,hint:'This hadith connects worship with the emotion of love',quran:'Al Imran 31'},
+    fr:{q:'Qu\'est-ce qui a ete fait « la fraicheur des yeux » du Prophete selon le hadith ?',opts:['Le jeune','La priere','La lecture du Coran','La charite'],correct:1,hint:'Ce hadith relie l\'adoration a l\'emotion de l\'amour',quran:'Al Imran 31'}
+  },
+  {
+    ar:{q:'ما صفة الله التي ذُكرت أكثر من غيرها في القرآن؟',opts:['القدرة','العلم','الرحمة','الحكمة'],correct:2,hint:'تُذكر في بداية كل سورة تقريباً',quran:'الأنبياء ١٠٧'},
+    en:{q:'Which attribute of God is mentioned most frequently in the Quran?',opts:['Power','Knowledge','Mercy','Wisdom'],correct:2,hint:'It is mentioned at the beginning of nearly every surah',quran:'Al-Anbiya 107'},
+    fr:{q:'Quel attribut de Dieu est mentionne le plus souvent dans le Coran ?',opts:['La Puissance','La Science','La Misericorde','La Sagesse'],correct:2,hint:'Il est mentionne au debut de presque chaque sourate',quran:'Al-Anbiya 107'}
+  },
+  {
+    ar:{q:'ما العاطفة التي قال عنها الحديث: "عينان لا تمسهما النار"؟',opts:['الحب','الفرح','البكاء من خشية الله','الشوق'],correct:2,hint:'هذه عاطفة تتعلق بدموع خاصة',quran:'الإسراء ١٠٩'},
+    en:{q:'Which emotion is described in the hadith: "Two eyes will not be touched by the Fire"?',opts:['Love','Joy','Weeping from awe of God','Longing'],correct:2,hint:'This emotion involves special tears',quran:'Al-Isra 109'},
+    fr:{q:'Quelle emotion est decrite dans le hadith : « Deux yeux ne seront pas touches par le Feu » ?',opts:['L\'amour','La joie','Les pleurs par crainte de Dieu','La nostalgie'],correct:2,hint:'Cette emotion implique des larmes speciales',quran:'Al-Isra 109'}
+  },
+  {
+    ar:{q:'أكمل الحديث: "إن الله رفيق يحب ..."',opts:['الصبر','القوة','الرفق','العلم'],correct:2,hint:'هذه صفة تتعلق باللين والحنان',quran:'آل عمران ١٥٩'},
+    en:{q:'Complete the hadith: "Allah is Gentle and loves ..."',opts:['Patience','Strength','Gentleness','Knowledge'],correct:2,hint:'This quality is about softness and tenderness',quran:'Al Imran 159'},
+    fr:{q:'Completez le hadith : « Allah est Doux et aime ... »',opts:['La patience','La force','La douceur','La science'],correct:2,hint:'Cette qualite concerne la tendresse et la bienveillance',quran:'Al Imran 159'}
+  }
 ];
 
+// ═══════════════ DUAS DATA ═══════════════
 const DUAS = [
-  {ar:{label:'دعاء الحب',text:'اللَّهُمَّ إِنِّي أَسْأَلُكَ حُبَّكَ وَحُبَّ مَنْ يُحِبُّكَ',tr:'اللهم إني أسألك حبك وحب من يحبك وحب عمل يقربني إلى حبك'},en:{label:'Dua for Love',text:'O Allah, I ask You for Your love and the love of those who love You',tr:'O Allah, I ask You for Your love and the love of deeds that bring me closer to Your love'},fr:{label:'Dua pour l\'Amour',text:'\u00d4 Allah, je Te demande Ton amour et l\'amour de ceux qui T\'aiment',tr:'\u00d4 Allah, je Te demande Ton amour et l\'amour des actes qui me rapprochent de Ton amour'}},
-  {ar:{label:'دعاء السكينة',text:'اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْهَمِّ وَالْحَزَنِ',tr:'اللهم إني أعوذ بك من الهم والحزن والعجز والكسل'},en:{label:'Dua for Tranquility',text:'O Allah, I seek refuge in You from worry and grief',tr:'O Allah, I seek refuge from worry, grief, weakness and laziness'},fr:{label:'Dua pour la Tranquillit\u00e9',text:'\u00d4 Allah, je cherche refuge contre le souci et le chagrin',tr:'\u00d4 Allah, je cherche refuge contre le souci, le chagrin, la faiblesse et la paresse'}},
-  {ar:{label:'دعاء الصبر',text:'رَبَّنَا أَفْرِغْ عَلَيْنَا صَبْرًا',tr:'ربنا أفرغ علينا صبراً وثبت أقدامنا'},en:{label:'Dua for Patience',text:'Our Lord, pour upon us patience',tr:'Our Lord, pour upon us patience and plant firmly our feet'},fr:{label:'Dua pour la Patience',text:'Notre Seigneur, d\u00e9verse sur nous la patience',tr:'Notre Seigneur, d\u00e9verse sur nous la patience et affermis nos pas'}},
-  {ar:{label:'دعاء الهداية',text:'اللَّهُمَّ اهْدِنِي وَسَدِّدْنِي',tr:'اللهم اهدني وسددني'},en:{label:'Dua for Guidance',text:'O Allah, guide me and set me straight',tr:'O Allah, guide me and make me upright'},fr:{label:'Dua pour la Guidance',text:'\u00d4 Allah, guide-moi et rends-moi droit',tr:'\u00d4 Allah, guide-moi et rends-moi droit'}},
-  {ar:{label:'دعاء الفرج',text:'لَا إِلَهَ إِلَّا أَنتَ سُبْحَانَكَ إِنِّي كُنتُ مِنَ الظَّالِمِينَ',tr:'دعاء يونس عليه السلام'},en:{label:'Dua for Relief',text:'There is no god but You, glory be to You, I was of the wrongdoers',tr:'The dua of Prophet Yunus'},fr:{label:'Dua pour le Soulagement',text:'Il n\'y a de dieu que Toi, gloire \u00e0 Toi, j\'\u00e9tais parmi les injustes',tr:'Le dua du Proph\u00e8te Yunus'}},
-  {ar:{label:'دعاء الخير',text:'اللَّهُمَّ إِنِّي أَسْأَلُكَ الْعَفْوَ وَالْعَافِيَةَ',tr:'اللهم إني أسألك العفو والعافية في الدنيا والآخرة'},en:{label:'Dua for Well-being',text:'O Allah, I ask You for pardon and well-being',tr:'O Allah, I ask You for pardon and well-being in this world and the next'},fr:{label:'Dua pour le Bien-\u00eatre',text:'\u00d4 Allah, je Te demande le pardon et le bien-\u00eatre',tr:'\u00d4 Allah, je Te demande le pardon et le bien-\u00eatre ici-bas et dans l\'au-del\u00e0'}},
+  { ar:{label:'دعاء تثبيت القلب',text:'يَا مُقَلِّبَ الْقُلُوبِ ثَبِّتْ قَلْبِي عَلَى دِينِكَ',tr:'رواه الترمذي'},
+    en:{label:'Dua for Steadfast Heart',text:'يَا مُقَلِّبَ الْقُلُوبِ ثَبِّتْ قَلْبِي عَلَى دِينِكَ',tr:'O Turner of hearts, make my heart firm upon Your religion — Tirmidhi'},
+    fr:{label:'Dua pour un Coeur Ferme',text:'يَا مُقَلِّبَ الْقُلُوبِ ثَبِّتْ قَلْبِي عَلَى دِينِكَ',tr:'O Celui qui retourne les coeurs, affermis mon coeur sur Ta religion — Tirmidhi'} },
+  { ar:{label:'دعاء انشراح الصدر',text:'رَبِّ اشْرَحْ لِي صَدْرِي وَيَسِّرْ لِي أَمْرِي',tr:'طه ٢٥-٢٦'},
+    en:{label:'Dua for an Open Heart',text:'رَبِّ اشْرَحْ لِي صَدْرِي وَيَسِّرْ لِي أَمْرِي',tr:'My Lord, expand for me my chest and ease for me my task — Taha 25-26'},
+    fr:{label:'Dua pour un Coeur Ouvert',text:'رَبِّ اشْرَحْ لِي صَدْرِي وَيَسِّرْ لِي أَمْرِي',tr:'Mon Seigneur, ouvre-moi ma poitrine et facilite-moi ma tache — Taha 25-26'} },
+  { ar:{label:'دعاء ذهاب الهم',text:'اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْهَمِّ وَالْحَزَنِ وَالْعَجْزِ وَالْكَسَلِ',tr:'رواه البخاري'},
+    en:{label:'Dua against Anxiety',text:'اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْهَمِّ وَالْحَزَنِ وَالْعَجْزِ وَالْكَسَلِ',tr:'O Allah, I seek refuge in You from worry, grief, inability, and laziness — Bukhari'},
+    fr:{label:'Dua contre l\'Anxiete',text:'اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْهَمِّ وَالْحَزَنِ وَالْعَجْزِ وَالْكَسَلِ',tr:'O Allah, je cherche refuge aupres de Toi contre le souci, le chagrin, l\'incapacite et la paresse — Bukhari'} },
+  { ar:{label:'دعاء حب الله',text:'اللَّهُمَّ إِنِّي أَسْأَلُكَ حُبَّكَ وَحُبَّ مَنْ يُحِبُّكَ وَحُبَّ عَمَلٍ يُقَرِّبُنِي إِلَى حُبِّكَ',tr:'رواه الترمذي'},
+    en:{label:'Dua for the Love of Allah',text:'اللَّهُمَّ إِنِّي أَسْأَلُكَ حُبَّكَ وَحُبَّ مَنْ يُحِبُّكَ وَحُبَّ عَمَلٍ يُقَرِّبُنِي إِلَى حُبِّكَ',tr:'O Allah, I ask You for Your love, the love of those who love You, and the love of deeds that bring me closer to Your love — Tirmidhi'},
+    fr:{label:'Dua pour l\'Amour d\'Allah',text:'اللَّهُمَّ إِنِّي أَسْأَلُكَ حُبَّكَ وَحُبَّ مَنْ يُحِبُّكَ وَحُبَّ عَمَلٍ يُقَرِّبُنِي إِلَى حُبِّكَ',tr:'O Allah, je Te demande Ton amour, l\'amour de ceux qui T\'aiment, et l\'amour des actes qui me rapprochent de Ton amour — Tirmidhi'} },
+  { ar:{label:'دعاء الشكر',text:'رَبِّ أَوْزِعْنِي أَنْ أَشْكُرَ نِعْمَتَكَ الَّتِي أَنْعَمْتَ عَلَيَّ',tr:'النمل ١٩'},
+    en:{label:'Dua of Gratitude',text:'رَبِّ أَوْزِعْنِي أَنْ أَشْكُرَ نِعْمَتَكَ الَّتِي أَنْعَمْتَ عَلَيَّ',tr:'My Lord, enable me to be grateful for Your favor which You have bestowed upon me — An-Naml 19'},
+    fr:{label:'Dua de Gratitude',text:'رَبِّ أَوْزِعْنِي أَنْ أَشْكُرَ نِعْمَتَكَ الَّتِي أَنْعَمْتَ عَلَيَّ',tr:'Mon Seigneur, permets-moi de Te remercier pour Tes bienfaits — An-Naml 19'} }
 ];
 
-let lang = localStorage.getItem('ja-lang') || 'ar';
-let theme = localStorage.getItem('ja-theme') || 'rose';
-const themes = ['rose','night','garden'];
-const themeIcons = ['🌸','🌙','🌿'];
-const themeNames = {rose:'🌸',night:'🌙 Night',garden:'🌿 Garden'};
-let currentCardIdx = -1;
+// ═══════════════ XP / BADGE SYSTEM ═══════════════
+const XP_KEY = 'atifi-xp';
+const BADGES_KEY = 'atifi-badges';
+const READ_KEY = 'atifi-read';
+const STREAK_KEY = 'atifi-streak';
+const MODE_KEY = 'atifi-mode';
+const QUIZ_BEST_KEY = 'atifi-quiz-best';
 
-document.addEventListener('DOMContentLoaded', () => { setTheme(theme); setLang(lang); initTabs(); initSplash(); initScrollTop(); renderHome(); renderCards(); renderWisdom(); renderHabits(); renderQuiz(); renderAbout(); renderHelp(); renderDuas(); initScrollReveal(); initKeyboardNav(); });
+const BADGE_DEFS = [
+  { id:'beginner', emoji:'🌱', xp:0, ar:'مبتدئ', en:'Beginner', fr:'Debutant' },
+  { id:'reader', emoji:'📖', xp:100, ar:'قارئ', en:'Reader', fr:'Lecteur' },
+  { id:'scholar', emoji:'🎓', xp:300, ar:'عالم', en:'Scholar', fr:'Savant' },
+  { id:'persistent', emoji:'🔥', xp:500, ar:'مثابر', en:'Persistent', fr:'Perseverant' },
+  { id:'expert', emoji:'🏆', xp:1000, ar:'خبير', en:'Expert', fr:'Expert' }
+];
 
-function initSplash(){let c=5;const el=document.getElementById('splashCount');const fe=document.getElementById('splashFeatures');if(fe)fe.innerHTML=T[lang].splashFeatures.map((f,i)=>`<div class="splash-feature" style="animation-delay:${0.3+i*0.3}s">${f}</div>`).join('');const iv=setInterval(()=>{c--;if(el)el.textContent=c;if(c<=0){dismissSplash();clearInterval(iv);}},1000);}
-function dismissSplash(){const s=document.getElementById('splash');if(s){s.classList.add('hidden');setTimeout(()=>s.style.display='none',500);}playSound('click');}
+function getXP() { return parseInt(localStorage.getItem(XP_KEY) || '0'); }
+function addXP(pts) {
+  const xp = getXP() + pts;
+  localStorage.setItem(XP_KEY, xp);
+  checkBadges(xp);
+  updateXPDisplay();
+  return xp;
+}
+function getLevel(xp) {
+  if (xp >= 1000) return 5;
+  if (xp >= 500) return 4;
+  if (xp >= 300) return 3;
+  if (xp >= 100) return 2;
+  return 1;
+}
+function getEarnedBadges() { return JSON.parse(localStorage.getItem(BADGES_KEY) || '[]'); }
+function checkBadges(xp) {
+  const earned = getEarnedBadges();
+  BADGE_DEFS.forEach(b => {
+    if (xp >= b.xp && !earned.includes(b.id)) {
+      earned.push(b.id);
+      localStorage.setItem(BADGES_KEY, JSON.stringify(earned));
+      showToast(`${b.emoji} ${b[lang]}!`);
+      playSound('success');
+    }
+  });
+}
+function getReadTraits() { return JSON.parse(localStorage.getItem(READ_KEY) || '[]'); }
+function markTraitRead(id) {
+  const read = getReadTraits();
+  if (!read.includes(id)) {
+    read.push(id);
+    localStorage.setItem(READ_KEY, JSON.stringify(read));
+    addXP(10);
+  }
+}
 
-function setLang(l){lang=l;localStorage.setItem('ja-lang',l);const isRTL=l==='ar';document.documentElement.lang=l;document.documentElement.dir=isRTL?'rtl':'ltr';document.body.dir=isRTL?'rtl':'ltr';document.querySelectorAll('.lang-opt').forEach(b=>b.classList.toggle('active',b.dataset.lang===l));const t=T[l];const set=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v;};set('appTitle',t.appTitle);set('splashSub',t.splashSub);set('splashHint',t.splashHint);set('tabHome',t.tabHome);set('tabCards',t.tabCards);set('tabWisdom',t.tabWisdom);set('tabHabits',t.tabHabits);set('tabQuiz',t.tabQuiz);set('tabAbout',t.tabAbout);set('cardsTitle',t.cardsTitle);set('cardsDesc',t.cardsDesc);set('wisdomTitle',t.wisdomTitle);set('wisdomDesc',t.wisdomDesc);set('habitsTitle',t.habitsTitle);set('habitsDesc',t.habitsDesc);set('quizTitle',t.quizTitle);set('quizDesc',t.quizDesc);set('helpTitle',t.helpTitle);set('duaPanelTitle',t.duaPanelTitle);set('habitsReset',t.resetBtn);renderHome();renderCards();renderWisdom();renderHabits();renderQuiz();renderAbout();renderHelp();renderDuas();const fe=document.getElementById('splashFeatures');if(fe)fe.innerHTML=T[l].splashFeatures.map((f,i)=>`<div class="splash-feature" style="animation-delay:${0.3+i*0.3}s">${f}</div>`).join('');}
+// ═══════════════ STREAK ═══════════════
+function getStreak() { return JSON.parse(localStorage.getItem(STREAK_KEY) || '{"count":0,"lastDate":""}'); }
+function updateStreak() {
+  const today = new Date().toDateString();
+  const s = getStreak();
+  if (s.lastDate === today) return s.count;
+  const yesterday = new Date(); yesterday.setDate(yesterday.getDate()-1);
+  if (s.lastDate === yesterday.toDateString()) { s.count++; } else if (s.lastDate !== today) { s.count = 1; }
+  s.lastDate = today;
+  localStorage.setItem(STREAK_KEY, JSON.stringify(s));
+  return s.count;
+}
 
-function setTheme(t){theme=t;document.documentElement.dataset.theme=t;localStorage.setItem('ja-theme',t);const idx=themes.indexOf(t);const el=document.getElementById('themeIcon');if(el)el.textContent=themeIcons[idx];}
-function cycleTheme(){const idx=(themes.indexOf(theme)+1)%themes.length;setTheme(themes[idx]);showToast(themeNames[themes[idx]]);playSound('theme');}
+// ═══════════════ AGE MODE ═══════════════
+let ageMode = localStorage.getItem(MODE_KEY) || 'teen';
+function toggleAgeMode() {
+  ageMode = ageMode === 'young' ? 'teen' : 'young';
+  localStorage.setItem(MODE_KEY, ageMode);
+  document.body.classList.toggle('young-mode', ageMode === 'young');
+  renderAll();
+  showToast(ageMode === 'young' ? T[lang].youngMode : T[lang].teenMode);
+  playSound('theme');
+}
 
-function initTabs(){document.querySelectorAll('.tab').forEach(tab=>{tab.addEventListener('click',()=>{document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));tab.classList.add('active');const panel=document.getElementById('panel-'+tab.dataset.tab);if(panel)panel.classList.add('active');window.scrollTo({top:0,behavior:'smooth'});playSound('click');});});}
+// ═══════════════ LANGUAGE & THEME ═══════════════
+let lang = document.documentElement.lang || 'ar';
+let currentTheme = document.documentElement.dataset.theme || 'nature';
+const THEMES = ['nature','night','ocean'];
+const THEME_ICONS = { nature:'🌿', night:'🌙', ocean:'🌊' };
+let currentPrincipleIdx = -1;
 
-function renderHome(){const t=T[lang];const dayIdx=new Date().getDate()%CARDS.length;const c=CARDS[dayIdx];const cd=c[lang];document.getElementById('dailyCard').innerHTML=`<div class="daily-label">${t.dailyLabel}</div><div class="daily-title">${cd.title}</div><div class="daily-body">${cd.desc}</div><div class="daily-action" onclick="document.querySelector('[data-tab=cards]').click()">${t.tabCards} &#8594;</div>`;const sections=[{icon:'❤️',tab:'cards',title:t.tabCards,desc:lang==='ar'?'٢٠ عاطفة إسلامية':lang==='fr'?'20 \u00e9motions islamiques':'20 Islamic emotions'},{icon:'💡',tab:'wisdom',title:t.tabWisdom,desc:lang==='ar'?'حكم عاطفية':lang==='fr'?'Sagesse \u00e9motionnelle':'Emotional wisdom'},{icon:'📋',tab:'habits',title:t.tabHabits,desc:lang==='ar'?'تتبع يومي':lang==='fr'?'Suivi quotidien':'Daily tracking'},{icon:'🤔',tab:'quiz',title:t.tabQuiz,desc:lang==='ar'?'اختبر نفسك':lang==='fr'?'Testez-vous':'Test yourself'},{icon:'📖',tab:'about',title:t.tabAbout,desc:lang==='ar'?'عن الكتاب':lang==='fr'?'Le livre':'About'}];document.getElementById('homeGrid').innerHTML=sections.map(s=>`<div class="home-card" onclick="document.querySelector('[data-tab=${s.tab}]').click()"><span class="hc-icon">${s.icon}</span><div class="hc-title">${s.title}</div><div class="hc-desc">${s.desc}</div></div>`).join('');}
+function setLang(l) {
+  lang = l;
+  document.documentElement.lang = l;
+  document.documentElement.dir = l === 'ar' ? 'rtl' : 'ltr';
+  document.querySelectorAll('.lang-opt').forEach(b => b.classList.toggle('active', b.dataset.lang === l));
+  renderAll();
+}
 
-function renderCards(){const t=T[lang];const sb=`<div class="search-bar"><input type="text" id="cardsSearch" class="search-input" placeholder="${t.searchPlaceholder}" oninput="filterCards(this.value)"><span class="search-icon">🔍</span></div>`;const cards=CARDS.map((c,i)=>{const d=c[lang];return`<div class="principle-card scroll-reveal" id="card-${c.id}" data-search="${d.title.toLowerCase()}"><div class="principle-head" onclick="toggleCard('card-${c.id}')"><span class="principle-num">${c.id}</span><span class="principle-emoji">${c.emoji}</span><span class="principle-title">${d.title}</span><span class="principle-chev">&#9660;</span></div><div class="principle-body"><div class="principle-inner"><p class="principle-desc">${d.desc}</p><div class="verse-box"><div class="verse-arabic">${d.verse}</div><div class="verse-ref">${d.verseRef}</div></div><div class="action-box"><span class="action-icon">💡</span><span>${d.action}</span></div><button class="share-btn" onclick="event.stopPropagation();shareCard(${i})"><span class="share-icon">&#128279;</span> ${t.share}</button></div></div></div>`;}).join('');document.getElementById('cardsContainer').innerHTML=sb+cards;}
-function filterCards(q){q=q.toLowerCase().trim();document.querySelectorAll('.principle-card').forEach(c=>{const s=c.dataset.search||'';const t=c.querySelector('.principle-title');const tt=t?t.textContent.toLowerCase():'';c.style.display=(!q||s.includes(q)||tt.includes(q))?'':'none';});}
-async function shareCard(idx){const c=CARDS[idx];const d=c[lang];const text=`${c.emoji} ${d.title}\n\n${d.desc}\n\n${d.verse}\n\n💡 ${d.action}\n\n— الجانب العاطفي من الإسلام`;if(navigator.share){try{await navigator.share({title:d.title,text});}catch(e){}}else{try{await navigator.clipboard.writeText(text);showToast(lang==='ar'?'تم النسخ!':'Copied!');}catch(e){}}}
+function cycleTheme() {
+  const idx = (THEMES.indexOf(currentTheme) + 1) % THEMES.length;
+  currentTheme = THEMES[idx];
+  document.documentElement.dataset.theme = currentTheme;
+  document.getElementById('themeIcon').textContent = THEME_ICONS[currentTheme];
+  playSound('theme');
+}
 
-function renderWisdom(){document.getElementById('wisdomContainer').innerHTML=WISDOM_DATA.map(a=>{const d=a[lang];return`<div class="anxiety-card scroll-reveal"><div class="anxiety-header"><span class="anxiety-emoji">${a.emoji}</span><span class="anxiety-title">${d.title}</span></div><div class="verse-box" style="margin-bottom:12px"><div class="verse-arabic">${d.text}</div></div><div class="anxiety-problem"><span class="anxiety-label">${lang==='ar'?'😰 المشكلة':lang==='fr'?'😰 Le Probl\u00e8me':'😰 The Problem'}</span>${d.problem}</div><div class="anxiety-solution"><span class="anxiety-label">${lang==='ar'?'😌 الحل':lang==='fr'?'😌 La Solution':'😌 The Solution'}</span>${d.solution}</div></div>`;}).join('');}
+// ═══════════════ RENDER ALL ═══════════════
+function renderAll() {
+  const t = T[lang];
+  document.getElementById('appTitle').textContent = t.appTitle;
+  document.getElementById('splashSub').textContent = t.splashSub;
+  document.getElementById('splashHint').textContent = t.splashHint;
+  document.getElementById('tabHome').textContent = t.tabHome;
+  document.getElementById('tabTraits').textContent = t.tabTraits;
+  document.getElementById('tabQuiz').textContent = t.tabQuiz;
+  document.getElementById('tabProgress').textContent = t.tabProgress;
+  document.getElementById('tabAbout').textContent = t.tabAbout;
+  document.getElementById('traitsTitle').textContent = t.traitsTitle;
+  document.getElementById('traitsDesc').textContent = t.traitsDesc;
+  document.getElementById('quizTitle').textContent = t.quizTitle;
+  document.getElementById('quizDesc').textContent = t.quizDesc;
+  document.getElementById('progressTitle').textContent = t.progressTitle;
+  document.getElementById('progressDesc').textContent = t.progressDesc;
+  document.getElementById('helpTitle').textContent = t.helpTitle;
+  document.getElementById('duaPanelTitle').textContent = t.duaPanelTitle;
+  document.getElementById('ageModeBtn').textContent = ageMode === 'young' ? t.youngMode : t.teenMode;
+  // Render sections
+  renderHome();
+  renderTraits();
+  renderProgress();
+  renderAbout();
+  renderHelp();
+  renderDuas();
+  renderTicker();
+}
 
-function renderHabits(){const today=new Date().toDateString();let hs=JSON.parse(localStorage.getItem('ja-habits')||'{}');if(hs.date!==today){updateStreak(hs);hs={date:today,done:[]};localStorage.setItem('ja-habits',JSON.stringify(hs));}const streak=getStreak();const sh=streak>0?`<div class="streak-badge">🔥 ${streak} ${T[lang].streakMsg}</div>`:'';document.getElementById('habitsContainer').innerHTML=HABITS.map((h,i)=>{const d=h[lang];const done=hs.done.includes(i);return`<div class="habit-item ${done?'done':''}" onclick="toggleHabit(${i})"><span class="habit-check">${done?'&#10003;':''}</span><span class="habit-emoji">${h.emoji}</span><div><div class="habit-label">${d.label}</div><div class="habit-source">${d.source}</div></div></div>`;}).join('');const se=document.getElementById('streakBadge');if(se)se.innerHTML=sh;updateHabitsProgress(hs);}
-function toggleHabit(i){const today=new Date().toDateString();let hs=JSON.parse(localStorage.getItem('ja-habits')||'{}');if(hs.date!==today)hs={date:today,done:[]};const idx=hs.done.indexOf(i);if(idx>-1)hs.done.splice(idx,1);else hs.done.push(i);localStorage.setItem('ja-habits',JSON.stringify(hs));renderHabits();playSound(idx>-1?'click':'success');if(hs.done.length===HABITS.length){launchConfetti();showToast(T[lang].allDone);}}
-function resetHabits(){localStorage.setItem('ja-habits',JSON.stringify({date:new Date().toDateString(),done:[]}));renderHabits();showToast(lang==='ar'?'تم إعادة التعيين':'Reset');}
-function updateHabitsProgress(hs){const d=hs.done.length,t=HABITS.length,p=t>0?(d/t*100):0;const f=document.getElementById('habitsFill');const tx=document.getElementById('habitsText');if(f)f.style.width=p+'%';if(tx)tx.textContent=`${d}/${t}`;}
-function updateStreak(ps){let sd=JSON.parse(localStorage.getItem('ja-streak')||'{"count":0,"lastDate":""}');if(ps&&ps.done&&ps.done.length===HABITS.length&&ps.date){const y=new Date();y.setDate(y.getDate()-1);if(ps.date===y.toDateString())sd.count++;else if(ps.date!==new Date().toDateString())sd.count=ps.done.length===HABITS.length?1:0;sd.lastDate=ps.date;}else if(ps&&ps.date){sd.count=0;sd.lastDate=ps.date;}localStorage.setItem('ja-streak',JSON.stringify(sd));}
-function getStreak(){return JSON.parse(localStorage.getItem('ja-streak')||'{"count":0}').count;}
+// ═══════════════ RENDER: HOME ═══════════════
+function renderHome() {
+  const t = T[lang];
+  const dayIdx = new Date().getDate() % TRAITS.length;
+  const trait = TRAITS[dayIdx];
+  const d = trait[lang];
+  document.getElementById('dailyCard').innerHTML = `
+    <div class="daily-label">${t.dailyLabel}</div>
+    <div class="daily-title">${trait.emoji} ${d.title}</div>
+    <div class="daily-body">${ageMode === 'young' ? d.young : d.desc}</div>
+    <div class="daily-action" onclick="switchTab('traits');toggleCard('trait-${trait.id}')">${t.readMore} &#8594;</div>`;
+  // Grid
+  document.getElementById('homeGrid').innerHTML = TRAITS.map(tr => {
+    const dd = tr[lang];
+    return `<div class="home-card" onclick="switchTab('traits');toggleCard('trait-${tr.id}')">
+      <span class="hc-icon">${tr.emoji}</span>
+      <div class="hc-title">${dd.title}</div>
+    </div>`;
+  }).join('');
+}
 
-function launchConfetti(){const canvas=document.getElementById('confettiCanvas');if(!canvas)return;canvas.style.display='block';const ctx=canvas.getContext('2d');canvas.width=window.innerWidth;canvas.height=window.innerHeight;const ps=[];const colors=['#E91E63','#F48FB1','#FCE4EC','#FF80AB','#FFD54F','#CE93D8','#F06292'];for(let i=0;i<120;i++)ps.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height-canvas.height,w:Math.random()*10+5,h:Math.random()*6+3,color:colors[Math.floor(Math.random()*colors.length)],vx:(Math.random()-0.5)*4,vy:Math.random()*3+2,rot:Math.random()*360,rotSpeed:(Math.random()-0.5)*10});let frame=0;function draw(){ctx.clearRect(0,0,canvas.width,canvas.height);ps.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.rot+=p.rotSpeed;ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.rot*Math.PI/180);ctx.fillStyle=p.color;ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h);ctx.restore();});frame++;if(frame<120)requestAnimationFrame(draw);else{ctx.clearRect(0,0,canvas.width,canvas.height);canvas.style.display='none';}}draw();}
+// ═══════════════ RENDER: TRAITS ═══════════════
+function renderTraits() {
+  const t = T[lang];
+  const readTraits = getReadTraits();
+  const container = document.getElementById('traitsContainer');
+  // Search bar
+  const searchHTML = `<div class="search-bar"><span class="search-icon">🔍</span><input class="search-input" id="traitsSearch" placeholder="${t.searchPlaceholder}" oninput="filterTraits(this.value)"></div>`;
+  container.innerHTML = searchHTML + TRAITS.map(tr => {
+    const d = tr[lang];
+    const isRead = readTraits.includes(tr.id);
+    return `
+    <div class="trait-card scroll-reveal ${isRead ? 'read' : ''}" id="trait-${tr.id}">
+      <div class="trait-head" onclick="toggleCard('trait-${tr.id}');markTraitRead(${tr.id})">
+        <span class="trait-num">${tr.id}</span>
+        <span class="trait-emoji">${tr.emoji}</span>
+        <span class="trait-title">${d.title}</span>
+        ${isRead ? '<span class="trait-read-badge">&#10003;</span>' : ''}
+        <span class="trait-chev">&#9660;</span>
+      </div>
+      <div class="trait-body">
+        <div class="trait-inner">
+          <div class="trait-desc">${ageMode === 'young' ? d.young : d.desc}</div>
+          <div class="verse-box">
+            <div class="verse-arabic">${d.verse}</div>
+            <div class="verse-ref">${d.verseRef}</div>
+          </div>
+          <div class="hadith-box">
+            <span class="hadith-label">📜 ${t.hadith}</span>
+            <div class="hadith-text">${d.hadith}</div>
+          </div>
+          <div class="action-box">
+            <span class="action-icon">💡</span>
+            <span>${d.action}</span>
+          </div>
+          <button class="share-btn" onclick="shareTrait(${tr.id})"><span class="share-icon">📤</span> ${t.share}</button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
 
-function renderQuiz(){const t=T[lang];document.getElementById('quizContainer').innerHTML=QUIZ.map((q,i)=>`<div class="quiz-question scroll-reveal" id="quiz-q-${i}"><div class="quiz-q-text">${i+1}. ${q[lang]}</div><div class="quiz-options"><button class="quiz-opt" onclick="selectQuizOpt(${i},2)">${lang==='ar'?'نعم':lang==='fr'?'Oui':'Yes'}</button><button class="quiz-opt" onclick="selectQuizOpt(${i},1)">${lang==='ar'?'أحياناً':lang==='fr'?'Parfois':'Sometimes'}</button><button class="quiz-opt" onclick="selectQuizOpt(${i},0)">${lang==='ar'?'لا':lang==='fr'?'Non':'No'}</button></div></div>`).join('')+`<button class="quiz-submit" onclick="submitQuiz()">${t.submitQuiz}</button>`;document.getElementById('quizResult').classList.add('hidden');window._quizAnswers={};}
-function selectQuizOpt(qi,v){window._quizAnswers[qi]=v;document.querySelectorAll(`#quiz-q-${qi} .quiz-opt`).forEach((o,oi)=>o.classList.toggle('selected',[2,1,0][oi]===v));playSound('click');}
-function submitQuiz(){const a=window._quizAnswers||{};if(Object.keys(a).length<QUIZ.length){showToast(lang==='ar'?'أجب على جميع الأسئلة':'Answer all questions');return;}const inv=[1,3];let score=0;Object.entries(a).forEach(([qi,v])=>{score+=inv.includes(parseInt(qi))?(2-v):v;});const max=QUIZ.length*2;const pct=Math.round(score/max*100);let emoji,title,desc;if(pct>=75){emoji='🌟';title=lang==='ar'?'ذكاء عاطفي عالي!':lang==='fr'?'Intelligence \u00e9motionnelle \u00e9lev\u00e9e !':'High emotional intelligence!';desc=lang==='ar'?'عواطفك متوازنة ومحكومة بالإيمان. أحسنت!':'Your emotions are balanced and guided by faith. Well done!';}else if(pct>=50){emoji='❤️';title=lang==='ar'?'جيد':lang==='fr'?'Bien':'Good';desc=lang==='ar'?'أنت على الطريق — زد من التوازن العاطفي':'You\'re on the path — increase your emotional balance';}else{emoji='💪';title=lang==='ar'?'ابدأ التوازن!':lang==='fr'?'Commencez l\'\u00e9quilibre !':'Start balancing!';desc=lang==='ar'?'عواطفك تحتاج توجيهاً إيمانياً — راجع بطاقات الكتاب':'Your emotions need faith-based guidance — review the cards';}const r=document.getElementById('quizResult');r.classList.remove('hidden');r.innerHTML=`<div class="qr-emoji">${emoji}</div><div class="qr-score">${pct}%</div><div class="qr-title">${title}</div><div class="qr-desc">${desc}</div><button class="quiz-submit" onclick="renderQuiz()" style="margin-top:16px">${T[lang].quizAgain}</button>`;r.scrollIntoView({behavior:'smooth'});playSound('success');}
+function filterTraits(query) {
+  const cards = document.querySelectorAll('.trait-card');
+  const q = query.toLowerCase();
+  cards.forEach(card => {
+    const title = card.querySelector('.trait-title').textContent.toLowerCase();
+    const desc = card.querySelector('.trait-desc') ? card.querySelector('.trait-desc').textContent.toLowerCase() : '';
+    card.style.display = (!q || title.includes(q) || desc.includes(q)) ? '' : 'none';
+  });
+}
 
-function renderAbout(){const about={ar:{disclaimerTitle:'⚠️ تنبيه مهم',disclaimer:'لست عالماً ولا مفتياً. هذا جهد متواضع من مسلم يحب كتب الشيخ الغزالي. ليست فتوى.',authorName:'الشيخ محمد الغزالي',authorDates:'١٩١٧ — ١٩٩٦',authorBio:'عالم ومفكر إسلامي مصري، لُقب بـ"أديب الدعوة". ألّف أكثر من ٩٤ كتاباً.',bookTitle:'عن الكتاب',bookDesc:'كتاب "الجانب العاطفي من الإسلام" يثبت أن الإسلام ليس ديناً جافاً بل دين العاطفة والحب والرحمة. يستعرض الغزالي كيف يوجّه الإسلام مشاعر الإنسان نحو التوازن — فلا إفراط في الخوف ولا تفريط في الأمل.',sourcesTitle:'المصادر',sources:['كتاب "الجانب العاطفي من الإسلام" — الشيخ محمد الغزالي','القرآن الكريم','صحيح البخاري ومسلم'],contact:'تواصل: abdelhak.bourdim@gmail.com'},en:{disclaimerTitle:'⚠️ Important Notice',disclaimer:'I am not a scholar or mufti. This is a humble effort by a Muslim who loves Sheikh al-Ghazali\'s books. This is not a fatwa.',authorName:'Sheikh Mohammed al-Ghazali',authorDates:'1917 — 1996',authorBio:'Egyptian Islamic scholar and thinker. Author of 94+ books. Known for renewal and defending emotional expression in Islam.',bookTitle:'About the Book',bookDesc:'"The Emotional Side of Islam" proves that Islam is not a dry religion but one of emotion, love, and mercy. Al-Ghazali explores how Islam guides human emotions toward balance — neither excessive fear nor neglected hope.',sourcesTitle:'Sources',sources:['"The Emotional Side of Islam" — Sheikh Mohammed al-Ghazali','The Holy Quran','Sahih al-Bukhari and Muslim'],contact:'Contact: abdelhak.bourdim@gmail.com'},fr:{disclaimerTitle:'⚠️ Avis Important',disclaimer:'Je ne suis ni savant ni mufti. C\'est un effort humble d\'un musulman qui aime les livres du Sheikh al-Ghazali. Ce n\'est pas une fatwa.',authorName:'Sheikh Mohammed al-Ghazali',authorDates:'1917 — 1996',authorBio:'Savant et penseur islamique \u00e9gyptien. Auteur de plus de 94 livres. Connu pour le renouveau et la d\u00e9fense de l\'expression \u00e9motionnelle en Islam.',bookTitle:'\u00c0 Propos du Livre',bookDesc:'\u00ab Le C\u00f4t\u00e9 \u00c9motionnel de l\'Islam \u00bb prouve que l\'Islam n\'est pas une religion s\u00e8che mais une religion d\'\u00e9motion, d\'amour et de mis\u00e9ricorde.',sourcesTitle:'Sources',sources:['\u00ab Le C\u00f4t\u00e9 \u00c9motionnel de l\'Islam \u00bb — Sheikh Mohammed al-Ghazali','Le Saint Coran','Sahih al-Bukhari et Muslim'],contact:'Contact : abdelhak.bourdim@gmail.com'}};const a=about[lang];document.getElementById('aboutContainer').innerHTML=`<div class="about-disclaimer"><div class="about-disclaimer-title">${a.disclaimerTitle}</div><p>${a.disclaimer}</p></div><div class="about-author"><span class="about-author-icon">📚</span><div class="about-author-info"><div class="about-author-name">${a.authorName}</div><div class="about-author-dates">${a.authorDates}</div><div class="about-author-bio">${a.authorBio}</div></div></div><div class="about-section"><div class="about-section-title">${a.bookTitle}</div><p class="about-text">${a.bookDesc}</p></div><div class="about-section"><div class="about-section-title">${a.sourcesTitle}</div>${a.sources.map(s=>`<p class="about-text">&#8226; ${s}</p>`).join('')}</div><div class="about-section"><p class="about-text">${a.contact}</p></div>`;}
+function shareTrait(id) {
+  const trait = TRAITS.find(t => t.id === id);
+  if (!trait) return;
+  const d = trait[lang];
+  const text = `${trait.emoji} ${d.title}\n${d.desc}\n\n${d.verse} — ${d.verseRef}`;
+  if (navigator.share) { navigator.share({ title: d.title, text }); }
+  else { navigator.clipboard.writeText(text).then(() => showToast(lang==='ar'?'تم النسخ':'Copied!')); }
+}
 
-function renderHelp(){const help={ar:[{title:'⚠️ تنبيه',body:'لست عالماً. هذا جهد متواضع لنشر حكمة الشيخ الغزالي.'},{title:'📚 المصادر',body:'كتاب "الجانب العاطفي من الإسلام" للشيخ محمد الغزالي.'},{title:'✨ المميزات',body:'ثلاث لغات، ٣ أنماط، ٢٠ بطاقة، حكم عاطفية، عادات، اختبار، أدعية.'}],en:[{title:'⚠️ Disclaimer',body:'I am not a scholar. This is a humble effort to share Sheikh al-Ghazali\'s wisdom.'},{title:'📚 Sources',body:'"The Emotional Side of Islam" by Sheikh Mohammed al-Ghazali.'},{title:'✨ Features',body:'Three languages, 3 themes, 20 cards, emotional wisdom, habits, quiz, duas.'}],fr:[{title:'⚠️ Avertissement',body:'Je ne suis pas un savant. C\'est un effort humble.'},{title:'📚 Sources',body:'\u00ab Le C\u00f4t\u00e9 \u00c9motionnel de l\'Islam \u00bb par Sheikh al-Ghazali.'},{title:'✨ Fonctionnalit\u00e9s',body:'Trois langues, 3 th\u00e8mes, 20 cartes, sagesse, habitudes, quiz, duas.'}]};document.getElementById('helpBody').innerHTML=help[lang].map(h=>`<div class="help-item"><div class="help-item-title">${h.title}</div><div>${h.body}</div></div>`).join('');}
+// ═══════════════ RENDER: QUIZ (Who Wants to Be a Scholar?) ═══════════════
+let quizState = { current: 0, score: 0, answers: [], lifelines: { fifty: true, hint: true, quran: true }, active: false };
 
-function renderDuas(){document.getElementById('duaPanelContent').innerHTML=DUAS.map(d=>{const dd=d[lang];return`<div class="dua-item"><div class="dua-item-label">${dd.label}</div><div class="dua-item-ar">${dd.text}</div><div class="dua-item-tr">${dd.tr}</div></div>`;}).join('');}
+function renderQuiz() {
+  quizState = { current: 0, score: 0, answers: [], lifelines: { fifty: true, hint: true, quran: true }, active: true };
+  showQuizQuestion();
+}
 
-function initScrollReveal(){if(!('IntersectionObserver' in window))return;const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('revealed');obs.unobserve(e.target);}});},{threshold:0.08,rootMargin:'0px 0px -40px 0px'});function oa(){document.querySelectorAll('.scroll-reveal:not(.revealed)').forEach(el=>obs.observe(el));}oa();document.querySelectorAll('.tab').forEach(tab=>tab.addEventListener('click',()=>setTimeout(oa,100)));}
+function showQuizQuestion() {
+  const t = T[lang];
+  const container = document.getElementById('quizContainer');
+  const result = document.getElementById('quizResult');
+  result.classList.add('hidden');
+  if (quizState.current >= QUIZ.length) {
+    showQuizResult();
+    return;
+  }
+  const q = QUIZ[quizState.current][lang];
+  const total = QUIZ.length;
+  const num = quizState.current + 1;
+  container.innerHTML = `
+    <div class="quiz-progress-bar"><div class="quiz-progress-fill" style="width:${num/total*100}%"></div></div>
+    <div class="quiz-counter">${num} / ${total}</div>
+    <div class="quiz-question-card scroll-reveal">
+      <div class="quiz-q-text">${q.q}</div>
+      <div class="quiz-options" id="quizOpts">
+        ${q.opts.map((opt, i) => `<button class="quiz-opt" id="qopt-${i}" onclick="answerQuiz(${i})">${opt}</button>`).join('')}
+      </div>
+      <div class="quiz-lifelines">
+        <button class="lifeline-btn ${quizState.lifelines.fifty?'':'used'}" onclick="useFiftyFifty()" ${quizState.lifelines.fifty?'':'disabled'}>${t.lifeline5050}</button>
+        <button class="lifeline-btn ${quizState.lifelines.hint?'':'used'}" onclick="useHint()" ${quizState.lifelines.hint?'':'disabled'}>${t.lifelineHint}</button>
+        <button class="lifeline-btn ${quizState.lifelines.quran?'':'used'}" onclick="useQuranRef()" ${quizState.lifelines.quran?'':'disabled'}>${t.lifelineQuran}</button>
+      </div>
+      <div id="quizFeedback" class="quiz-feedback hidden"></div>
+    </div>`;
+}
 
-function initKeyboardNav(){document.addEventListener('keydown',e=>{if(e.key==='Escape'){const hp=document.getElementById('helpPanel');if(!hp.classList.contains('hidden')){toggleHelp();return;}const dp=document.getElementById('duaPanel');if(!dp.classList.contains('hidden')){toggleDuaPanel();return;}document.querySelectorAll('.principle-card.open').forEach(c=>c.classList.remove('open'));}if(e.key==='ArrowRight'||e.key==='ArrowLeft'){const cp=document.getElementById('panel-cards');if(!cp||!cp.classList.contains('active'))return;if(document.activeElement&&document.activeElement.id==='cardsSearch')return;e.preventDefault();const cards=Array.from(document.querySelectorAll('.principle-card')).filter(c=>c.style.display!=='none');if(!cards.length)return;if(currentCardIdx>=0&&currentCardIdx<cards.length)cards[currentCardIdx].classList.remove('open');const dir=(document.documentElement.dir==='rtl')?(e.key==='ArrowRight'?-1:1):(e.key==='ArrowRight'?1:-1);currentCardIdx=Math.max(0,Math.min(cards.length-1,currentCardIdx+dir));cards[currentCardIdx].classList.add('open');cards[currentCardIdx].scrollIntoView({behavior:'smooth',block:'center'});playSound('click');}});}
+function answerQuiz(idx) {
+  if (!quizState.active) return;
+  const q = QUIZ[quizState.current][lang];
+  const correct = q.correct;
+  const opts = document.querySelectorAll('.quiz-opt');
+  opts.forEach((o, i) => {
+    o.disabled = true;
+    if (i === correct) o.classList.add('correct');
+    if (i === idx && i !== correct) o.classList.add('wrong');
+  });
+  const feedback = document.getElementById('quizFeedback');
+  feedback.classList.remove('hidden');
+  if (idx === correct) {
+    quizState.score++;
+    addXP(5);
+    feedback.innerHTML = `<span class="fb-correct">${T[lang].correct}</span>`;
+    playSound('success');
+  } else {
+    feedback.innerHTML = `<span class="fb-wrong">${T[lang].wrong}</span>`;
+    playSound('click');
+  }
+  quizState.answers.push(idx);
+  quizState.current++;
+  setTimeout(() => showQuizQuestion(), 1800);
+}
 
-function toggleCard(id){const c=document.getElementById(id);if(c){c.classList.toggle('open');playSound('click');}}
-function toggleHelp(){document.getElementById('helpPanel').classList.toggle('hidden');playSound('click');}
-function toggleDuaPanel(){document.getElementById('duaPanel').classList.toggle('hidden');playSound('click');}
-function showToast(msg){const t=document.getElementById('toast'),m=document.getElementById('toastMsg');if(t&&m){m.textContent=msg;t.style.display='block';setTimeout(()=>t.style.display='none',2500);}}
-function initScrollTop(){const btn=document.getElementById('scrollTop');window.addEventListener('scroll',()=>{if(btn)btn.classList.toggle('visible',window.scrollY>300);});}
+function useFiftyFifty() {
+  if (!quizState.lifelines.fifty) return;
+  quizState.lifelines.fifty = false;
+  const q = QUIZ[quizState.current][lang];
+  const correct = q.correct;
+  const wrongIdxs = [0,1,2,3].filter(i => i !== correct);
+  const toHide = wrongIdxs.sort(() => Math.random() - 0.5).slice(0, 2);
+  toHide.forEach(i => { const el = document.getElementById('qopt-'+i); if(el) { el.style.visibility='hidden'; el.disabled=true; }});
+  document.querySelector('.lifeline-btn').classList.add('used');
+  playSound('click');
+}
 
-const AudioCtx=window.AudioContext||window.webkitAudioContext;let audioCtx;
-function playSound(type){try{if(!audioCtx)audioCtx=new AudioCtx();const osc=audioCtx.createOscillator();const gain=audioCtx.createGain();osc.connect(gain);gain.connect(audioCtx.destination);gain.gain.value=0.06;if(type==='click'){osc.frequency.value=800;osc.type='sine';gain.gain.value=0.04;}else if(type==='success'){osc.frequency.value=523;osc.type='sine';}else if(type==='theme'){osc.frequency.value=440;osc.type='triangle';gain.gain.value=0.05;}osc.start();osc.stop(audioCtx.currentTime+0.1);}catch(e){}}
+function useHint() {
+  if (!quizState.lifelines.hint) return;
+  quizState.lifelines.hint = false;
+  const q = QUIZ[quizState.current][lang];
+  const feedback = document.getElementById('quizFeedback');
+  feedback.classList.remove('hidden');
+  feedback.innerHTML = `<span class="fb-hint">💡 ${q.hint}</span>`;
+  playSound('click');
+}
 
-(function(){let sx=0,sy=0;const to=['home','cards','wisdom','habits','quiz','about'];document.addEventListener('touchstart',e=>{sx=e.changedTouches[0].screenX;sy=e.changedTouches[0].screenY;},{passive:true});document.addEventListener('touchend',e=>{const dx=e.changedTouches[0].screenX-sx;const dy=e.changedTouches[0].screenY-sy;if(Math.abs(dx)<80||Math.abs(dy)>Math.abs(dx)*0.7)return;const ct=document.querySelector('.tab.active');if(!ct)return;const ci=to.indexOf(ct.dataset.tab);if(ci<0)return;const isRTL=document.documentElement.dir==='rtl';let ni;if(dx>0)ni=isRTL?Math.min(ci+1,to.length-1):Math.max(ci-1,0);else ni=isRTL?Math.max(ci-1,0):Math.min(ci+1,to.length-1);if(ni!==ci)document.querySelector(`.tab[data-tab="${to[ni]}"]`).click();},{passive:true});})();
+function useQuranRef() {
+  if (!quizState.lifelines.quran) return;
+  quizState.lifelines.quran = false;
+  const q = QUIZ[quizState.current][lang];
+  const feedback = document.getElementById('quizFeedback');
+  feedback.classList.remove('hidden');
+  feedback.innerHTML = `<span class="fb-quran">📖 ${q.quran}</span>`;
+  playSound('click');
+}
+
+function showQuizResult() {
+  const t = T[lang];
+  const total = QUIZ.length;
+  const pct = Math.round(quizState.score / total * 100);
+  // Save best score
+  const best = parseInt(localStorage.getItem(QUIZ_BEST_KEY) || '0');
+  if (pct > best) localStorage.setItem(QUIZ_BEST_KEY, pct);
+  addXP(20); // bonus for completing
+  let emoji, title;
+  if (pct >= 80) { emoji = '🏆'; title = lang==='ar'?'عالم حقيقي!':lang==='fr'?'Un vrai savant !':'A True Scholar!'; }
+  else if (pct >= 50) { emoji = '📖'; title = lang==='ar'?'جيد جداً!':lang==='fr'?'Tres bien !':'Very Good!'; }
+  else { emoji = '🌱'; title = lang==='ar'?'واصل التعلم!':lang==='fr'?'Continue d\'apprendre !':'Keep Learning!'; }
+  document.getElementById('quizContainer').innerHTML = '';
+  const result = document.getElementById('quizResult');
+  result.classList.remove('hidden');
+  result.innerHTML = `
+    <div class="qr-emoji">${emoji}</div>
+    <div class="qr-score">${quizState.score}/${total}</div>
+    <div class="qr-title">${title}</div>
+    <div class="qr-desc">${pct}%</div>
+    <button class="quiz-submit" onclick="renderQuiz()">${t.tryAgain}</button>`;
+  result.scrollIntoView({ behavior: 'smooth' });
+  if (pct >= 80) launchConfetti();
+  quizState.active = false;
+}
+
+// ═══════════════ RENDER: PROGRESS ═══════════════
+function renderProgress() {
+  const t = T[lang];
+  const xp = getXP();
+  const level = getLevel(xp);
+  const streak = getStreak().count;
+  const readTraits = getReadTraits();
+  const earned = getEarnedBadges();
+  const bestQuiz = parseInt(localStorage.getItem(QUIZ_BEST_KEY) || '0');
+  const nextBadge = BADGE_DEFS.find(b => !earned.includes(b.id));
+  const nextXP = nextBadge ? nextBadge.xp : 1000;
+  const progressPct = Math.min(100, (xp / nextXP) * 100);
+
+  document.getElementById('progressContainer').innerHTML = `
+    <div class="progress-xp-card">
+      <div class="xp-header">
+        <span class="xp-icon">⭐</span>
+        <span class="xp-amount">${xp} ${t.xpLabel}</span>
+      </div>
+      <div class="xp-bar-wrap">
+        <div class="xp-bar"><div class="xp-bar-fill" style="width:${progressPct}%"></div></div>
+        <span class="xp-level">${t.levelLabel} ${level}</span>
+      </div>
+      ${nextBadge ? `<div class="xp-next">${lang==='ar'?'التالي:':lang==='fr'?'Suivant:':'Next:'} ${nextBadge.emoji} ${nextBadge[lang]} (${nextBadge.xp} XP)</div>` : ''}
+    </div>
+    ${streak > 0 ? `<div class="streak-badge">🔥 ${streak} ${t.streakMsg}</div>` : ''}
+    <div class="progress-stats">
+      <div class="stat-card"><span class="stat-num">${readTraits.length}</span><span class="stat-label">${lang==='ar'?'عاطفة مقروءة':lang==='fr'?'Emotions lues':'Emotions Read'}</span><span class="stat-total">/ ${TRAITS.length}</span></div>
+      <div class="stat-card"><span class="stat-num">${bestQuiz}%</span><span class="stat-label">${lang==='ar'?'أفضل نتيجة':lang==='fr'?'Meilleur score':'Best Quiz'}</span></div>
+      <div class="stat-card"><span class="stat-num">${earned.length}</span><span class="stat-label">${lang==='ar'?'شارات':lang==='fr'?'Badges':'Badges'}</span><span class="stat-total">/ ${BADGE_DEFS.length}</span></div>
+    </div>
+    <div class="badges-section">
+      <h3 class="badges-title">${lang==='ar'?'🏅 الشارات':lang==='fr'?'🏅 Badges':'🏅 Badges'}</h3>
+      <div class="badges-grid">
+        ${BADGE_DEFS.map(b => `<div class="badge-item ${earned.includes(b.id)?'earned':'locked'}"><span class="badge-emoji">${b.emoji}</span><span class="badge-name">${b[lang]}</span><span class="badge-xp">${b.xp} XP</span></div>`).join('')}
+      </div>
+    </div>`;
+}
+
+function updateXPDisplay() {
+  // Quick update if progress panel is visible
+  const panel = document.getElementById('panel-progress');
+  if (panel && panel.classList.contains('active')) renderProgress();
+}
+
+// ═══════════════ RENDER: ABOUT ═══════════════
+function renderAbout() {
+  const about = {
+    ar: {
+      disclaimerTitle: '⚠️ تنبيه مهم',
+      disclaimer: 'لست عالماً ولا مفتياً. هذا جهد متواضع من مسلم يحب كتب الشيخ الغزالي. المحتوى مستمد من الكتاب ومصادر إسلامية موثوقة. ليست فتوى.',
+      authorName: 'الشيخ محمد الغزالي',
+      authorDates: '١٩١٧ — ١٩٩٦',
+      authorBio: 'عالم ومفكر إسلامي مصري، لُقب بـ"أديب الدعوة". ألّف أكثر من ٩٤ كتاباً. درس في الأزهر، ودرّس في جامعة الأمير عبد القادر بقسنطينة (الجزائر). حاصل على جائزة الملك فيصل. عُرف بالتجديد ومحاربة الجمود والتشدد.',
+      bookTitle: 'عن الكتاب',
+      bookDesc: '«الجانب العاطفي من الإسلام» كتاب يكشف عن وجه الإسلام الحاني الرقيق. يبيّن الشيخ الغزالي أن الإسلام ليس ديناً جافاً يخاطب العقل فقط، بل هو دين يحتضن القلب ويوجه المشاعر ويرتقي بالعواطف. يتناول الحب والرحمة والفرح والحزن والخشية والأمل في ميزان الشريعة.',
+      sourcesTitle: 'المصادر',
+      sources: ['كتاب "الجانب العاطفي من الإسلام" — الشيخ محمد الغزالي','القرآن الكريم','صحيح البخاري ومسلم','سنن الترمذي والنسائي'],
+      contact: 'تواصل: abdelhak.bourdim@gmail.com'
+    },
+    en: {
+      disclaimerTitle: '⚠️ Important Notice',
+      disclaimer: 'I am not a scholar or mufti. This is a humble effort by a Muslim who loves Sheikh al-Ghazali\'s books. Content is derived from the book and trusted Islamic sources. This is not a fatwa.',
+      authorName: 'Sheikh Mohammed al-Ghazali',
+      authorDates: '1917 — 1996',
+      authorBio: 'Egyptian Islamic scholar and thinker, nicknamed "The Literary Preacher." Author of 94+ books. Studied at Al-Azhar, taught at the University of Emir Abdelkader in Constantine, Algeria. King Faisal Award winner. Known for renewal, fighting rigidity, and defending women\'s rights in Islam.',
+      bookTitle: 'About the Book',
+      bookDesc: '"The Emotional Side of Islam" reveals the tender, compassionate face of Islam. Sheikh al-Ghazali shows that Islam is not a dry religion addressing only the mind, but one that embraces the heart, guides emotions, and elevates feelings. The book explores love, mercy, joy, grief, awe, and hope through the lens of Islamic teachings.',
+      sourcesTitle: 'Sources',
+      sources: ['"The Emotional Side of Islam" (Al-Janib al-Atifi) — Sheikh Mohammed al-Ghazali','The Holy Quran','Sahih al-Bukhari and Muslim','Sunan at-Tirmidhi and An-Nasai'],
+      contact: 'Contact: abdelhak.bourdim@gmail.com'
+    },
+    fr: {
+      disclaimerTitle: '⚠️ Avis Important',
+      disclaimer: 'Je ne suis ni savant ni mufti. C\'est un effort humble d\'un musulman qui aime les livres du Sheikh al-Ghazali. Le contenu est tire du livre et de sources islamiques fiables. Ce n\'est pas une fatwa.',
+      authorName: 'Sheikh Mohammed al-Ghazali',
+      authorDates: '1917 — 1996',
+      authorBio: 'Savant et penseur islamique egyptien, surnomme "Le Litteraire de la Predication". Auteur de plus de 94 livres. Diplome d\'Al-Azhar, professeur a l\'Universite Emir Abdelkader de Constantine (Algerie). Laureat du Prix Roi Faysal.',
+      bookTitle: 'A Propos du Livre',
+      bookDesc: '"Le Cote Emotionnel de l\'Islam" revele le visage tendre et compatissant de l\'Islam. Le Sheikh al-Ghazali montre que l\'Islam n\'est pas une religion seche s\'adressant uniquement a l\'esprit, mais qu\'il embrasse le coeur, guide les emotions et eleve les sentiments. Le livre explore l\'amour, la misericorde, la joie, le chagrin, la crainte et l\'espoir a travers les enseignements islamiques.',
+      sourcesTitle: 'Sources',
+      sources: ['"Le Cote Emotionnel de l\'Islam" (Al-Janib al-Atifi) — Sheikh Mohammed al-Ghazali','Le Saint Coran','Sahih al-Bukhari et Muslim','Sunan at-Tirmidhi et An-Nasai'],
+      contact: 'Contact : abdelhak.bourdim@gmail.com'
+    }
+  };
+  const a = about[lang];
+  document.getElementById('aboutContainer').innerHTML = `
+    <div class="about-disclaimer">
+      <div class="about-disclaimer-title">${a.disclaimerTitle}</div>
+      <p>${a.disclaimer}</p>
+    </div>
+    <div class="about-author">
+      <span class="about-author-icon">📚</span>
+      <div class="about-author-info">
+        <div class="about-author-name">${a.authorName}</div>
+        <div class="about-author-dates">${a.authorDates}</div>
+        <div class="about-author-bio">${a.authorBio}</div>
+      </div>
+    </div>
+    <div class="about-section">
+      <div class="about-section-title">${a.bookTitle}</div>
+      <p class="about-text">${a.bookDesc}</p>
+    </div>
+    <div class="about-section">
+      <div class="about-section-title">${a.sourcesTitle}</div>
+      ${a.sources.map(s => `<p class="about-text">&#8226; ${s}</p>`).join('')}
+    </div>
+    <div class="about-section">
+      <p class="about-text">${a.contact}</p>
+    </div>`;
+}
+
+// ═══════════════ RENDER: HELP ═══════════════
+function renderHelp() {
+  const help = {
+    ar: [
+      {title:'⚠️ تنبيه',body:'لست عالماً. هذا جهد متواضع لنشر حكمة الشيخ الغزالي عن عواطف المؤمن بطريقة تفاعلية.'},
+      {title:'📚 المصادر',body:'كتاب "الجانب العاطفي من الإسلام" للشيخ محمد الغزالي، القرآن الكريم، السنة النبوية.'},
+      {title:'✨ المميزات',body:'ثلاث لغات (عربي/إنجليزي/فرنسي)، ٣ أنماط، ١٥ عاطفة، مسابقة تفاعلية، نظام نقاط وشارات، وضعان للأعمار.'},
+      {title:'🌟 وضع مستكشف صغير',body:'للأطفال ٧-١٢ سنة — نصوص مبسطة بالإيموجي، خط أكبر.'},
+      {title:'📖 وضع باحث شاب',body:'للشباب ١٣+ — نصوص كاملة مع آيات وأحاديث وتحليل.'},
+      {title:'🤝 المساهمة',body:'GitHub: github.com/abourdim/al-janib-al-atifi'},
+    ],
+    en: [
+      {title:'⚠️ Disclaimer',body:'I am not a scholar. This is a humble effort to share Sheikh al-Ghazali\'s wisdom on the believer\'s emotions interactively.'},
+      {title:'📚 Sources',body:'"The Emotional Side of Islam" by Sheikh Mohammed al-Ghazali, the Holy Quran, Prophetic Sunnah.'},
+      {title:'✨ Features',body:'Three languages (AR/EN/FR), 3 themes, 15 emotions, interactive quiz, XP and badges system, 2 age modes.'},
+      {title:'🌟 Young Explorer',body:'For kids 7-12 — simplified text with emojis, larger font.'},
+      {title:'📖 Teen Scholar',body:'For teens 13+ — full text with verses, hadiths, and analysis.'},
+      {title:'🤝 Contributing',body:'GitHub: github.com/abourdim/al-janib-al-atifi'},
+    ],
+    fr: [
+      {title:'⚠️ Avertissement',body:'Je ne suis pas un savant. C\'est un effort humble pour partager la sagesse du Sheikh al-Ghazali sur les emotions du croyant.'},
+      {title:'📚 Sources',body:'"Le Cote Emotionnel de l\'Islam" par Sheikh Mohammed al-Ghazali, le Saint Coran, la Sunnah.'},
+      {title:'✨ Fonctionnalites',body:'Trois langues (AR/EN/FR), 3 themes, 15 emotions, quiz interactif, systeme XP et badges, 2 modes d\'age.'},
+      {title:'🌟 Jeune Explorateur',body:'Pour enfants 7-12 ans — texte simplifie avec emojis, police plus grande.'},
+      {title:'📖 Jeune Chercheur',body:'Pour ados 13+ — texte complet avec versets, hadiths et analyse.'},
+      {title:'🤝 Contribuer',body:'GitHub : github.com/abourdim/al-janib-al-atifi'},
+    ]
+  };
+  document.getElementById('helpBody').innerHTML = help[lang].map(h => `
+    <div class="help-item">
+      <div class="help-item-title">${h.title}</div>
+      <div>${h.body}</div>
+    </div>`).join('');
+}
+
+// ═══════════════ RENDER: DUAS ═══════════════
+function renderDuas() {
+  document.getElementById('duaPanelContent').innerHTML = DUAS.map(d => {
+    const dd = d[lang];
+    return `<div class="dua-item">
+      <div class="dua-item-label">${dd.label}</div>
+      <div class="dua-item-ar">${dd.text}</div>
+      <div class="dua-item-tr">${dd.tr}</div>
+    </div>`;
+  }).join('');
+}
+
+// ═══════════════ TICKER ═══════════════
+function renderTicker() {
+  const tips = {
+    ar: ['📖 اقرأ عاطفة جديدة كل يوم','🏆 اجمع النقاط واربح الشارات','🌟 جرب وضع المستكشف الصغير','🤲 لا تنسَ الدعاء بانشراح الصدر','⭐ أكمل ١٥ عاطفة لتصبح خبيراً'],
+    en: ['📖 Read a new emotion every day','🏆 Collect points and earn badges','🌟 Try Young Explorer mode','🤲 Don\'t forget to make dua for an open heart','⭐ Complete all 15 emotions to become an Expert'],
+    fr: ['📖 Lisez une nouvelle emotion chaque jour','🏆 Collectez des points et gagnez des badges','🌟 Essayez le mode Jeune Explorateur','🤲 N\'oubliez pas les duas pour un coeur ouvert','⭐ Completez les 15 emotions pour devenir Expert']
+  };
+  const items = tips[lang];
+  const doubled = [...items, ...items];
+  const ticker = document.getElementById('tickerText');
+  ticker.innerHTML = doubled.map(t => `<span class="tc">&nbsp;&nbsp;${t}&nbsp;&nbsp;•</span>`).join('');
+  ticker.style.animation = `tickerMarquee ${items.length * 6}s linear infinite`;
+}
+
+// ═══════════════ SPLASH SCREEN ═══════════════
+let splashTimer;
+function initSplash() {
+  const features = document.getElementById('splashFeatures');
+  if (features) {
+    features.innerHTML = T[lang].splashFeatures.map((f, i) =>
+      `<div class="splash-feature" style="animation-delay:${0.3+i*0.3}s">${f}</div>`
+    ).join('');
+  }
+  let count = 5;
+  const counter = document.getElementById('splashCount');
+  splashTimer = setInterval(() => {
+    count--;
+    if (counter) counter.textContent = count;
+    if (count <= 0) dismissSplash();
+  }, 1000);
+}
+function dismissSplash() {
+  clearInterval(splashTimer);
+  const splash = document.getElementById('splash');
+  if (splash) { splash.classList.add('hidden'); setTimeout(() => splash.remove(), 600); }
+}
+
+// ═══════════════ TAB SWITCHING ═══════════════
+function initTabs() {
+  document.querySelectorAll('.tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      const name = tab.dataset.tab;
+      switchTab(name);
+    });
+  });
+}
+function switchTab(name) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  const panel = document.getElementById('panel-' + name);
+  const tabBtn = document.querySelector(`.tab[data-tab="${name}"]`);
+  if (panel) panel.classList.add('active');
+  if (tabBtn) tabBtn.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  playSound('click');
+  // Re-init scroll reveal
+  setTimeout(() => {
+    document.querySelectorAll('.scroll-reveal:not(.revealed)').forEach(el => {
+      if (window._scrollObserver) window._scrollObserver.observe(el);
+    });
+    initTypewriter();
+  }, 100);
+}
+
+// ═══════════════ SCROLL REVEAL ═══════════════
+function initScrollReveal() {
+  if (!('IntersectionObserver' in window)) return;
+  window._scrollObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('revealed');
+        window._scrollObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.scroll-reveal:not(.revealed)').forEach(el => window._scrollObserver.observe(el));
+}
+
+// ═══════════════ KEYBOARD NAVIGATION ═══════════════
+function initKeyboardNav() {
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      const hp = document.getElementById('helpPanel');
+      if (!hp.classList.contains('hidden')) { toggleHelp(); return; }
+      const dp = document.getElementById('duaPanel');
+      if (!dp.classList.contains('hidden')) { toggleDuaPanel(); return; }
+      document.querySelectorAll('.trait-card.open').forEach(c => c.classList.remove('open'));
+    }
+    if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+      const panel = document.getElementById('panel-traits');
+      if (!panel || !panel.classList.contains('active')) return;
+      if (document.activeElement && document.activeElement.id === 'traitsSearch') return;
+      e.preventDefault();
+      const cards = Array.from(document.querySelectorAll('.trait-card')).filter(c => c.style.display !== 'none');
+      if (!cards.length) return;
+      if (currentPrincipleIdx >= 0 && currentPrincipleIdx < cards.length) cards[currentPrincipleIdx].classList.remove('open');
+      const dir = document.documentElement.dir === 'rtl' ? (e.key==='ArrowRight'?-1:1) : (e.key==='ArrowRight'?1:-1);
+      currentPrincipleIdx = Math.max(0, Math.min(cards.length-1, currentPrincipleIdx+dir));
+      cards[currentPrincipleIdx].classList.add('open');
+      cards[currentPrincipleIdx].scrollIntoView({ behavior:'smooth', block:'center' });
+      playSound('click');
+    }
+  });
+}
+
+// ═══════════════ UTILITIES ═══════════════
+function toggleCard(id) {
+  const card = document.getElementById(id);
+  if (card) { card.classList.toggle('open'); playSound('click'); }
+}
+function toggleHelp() { document.getElementById('helpPanel').classList.toggle('hidden'); playSound('click'); }
+function toggleDuaPanel() { document.getElementById('duaPanel').classList.toggle('hidden'); playSound('click'); }
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  const m = document.getElementById('toastMsg');
+  if (t && m) { m.textContent = msg; t.style.display = 'block'; setTimeout(() => t.style.display = 'none', 2500); }
+}
+function initScrollTop() {
+  const btn = document.getElementById('scrollTop');
+  window.addEventListener('scroll', () => { if (btn) btn.classList.toggle('visible', window.scrollY > 300); });
+}
+
+// ═══════════════ SOUND EFFECTS ═══════════════
+const AudioCtx = window.AudioContext || window.webkitAudioContext;
+let audioCtx;
+function playSound(type) {
+  try {
+    if (!audioCtx) audioCtx = new AudioCtx();
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.connect(gain); gain.connect(audioCtx.destination);
+    gain.gain.value = 0.06;
+    if (type==='click') { osc.frequency.value=800; osc.type='sine'; gain.gain.value=0.04; }
+    else if (type==='success') { osc.frequency.value=523; osc.type='sine'; gain.gain.value=0.06; }
+    else if (type==='theme') { osc.frequency.value=440; osc.type='triangle'; gain.gain.value=0.05; }
+    osc.start(); osc.stop(audioCtx.currentTime + 0.1);
+  } catch(e) {}
+}
+
+// ═══════════════ CONFETTI ═══════════════
+function launchConfetti() {
+  const canvas = document.getElementById('confettiCanvas');
+  if (!canvas) return;
+  canvas.style.display = 'block';
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+  const particles = [];
+  const colors = ['#E91E63','#FF5722','#FF9800','#FFC107','#9C27B0','#3F51B5','#00BCD4'];
+  for (let i = 0; i < 120; i++) {
+    particles.push({ x:Math.random()*canvas.width, y:Math.random()*canvas.height-canvas.height, w:Math.random()*10+5, h:Math.random()*6+3, color:colors[Math.floor(Math.random()*colors.length)], vx:(Math.random()-0.5)*4, vy:Math.random()*3+2, rot:Math.random()*360, rotSpeed:(Math.random()-0.5)*10 });
+  }
+  let frame = 0;
+  function draw() {
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    particles.forEach(p => { p.x+=p.vx; p.y+=p.vy; p.rot+=p.rotSpeed; ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.rot*Math.PI/180); ctx.fillStyle=p.color; ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h); ctx.restore(); });
+    frame++;
+    if (frame < 120) requestAnimationFrame(draw);
+    else { ctx.clearRect(0,0,canvas.width,canvas.height); canvas.style.display='none'; }
+  }
+  draw();
+}
+
+// ═══════════════ TYPEWRITER ═══════════════
+function initTypewriter() {
+  const dailyTitle = document.querySelector('.daily-card .daily-title');
+  if (!dailyTitle || dailyTitle.dataset.twDone) return;
+  const fullText = dailyTitle.textContent;
+  dailyTitle.textContent = '';
+  dailyTitle.classList.add('typewriter-text');
+  dailyTitle.dataset.twDone = '1';
+  let i = 0;
+  const speed = Math.max(30, 2000 / fullText.length);
+  function typeChar() {
+    if (i < fullText.length) { dailyTitle.textContent += fullText.charAt(i); i++; setTimeout(typeChar, speed); }
+    else { setTimeout(() => dailyTitle.classList.add('tw-done'), 1500); }
+  }
+  setTimeout(typeChar, 500);
+}
+
+// ═══════════════ SWIPE GESTURES ═══════════════
+function initSwipeGestures() {
+  let touchStartX = 0, touchStartY = 0;
+  const tabOrder = ['home','traits','quiz','progress','about'];
+  document.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; touchStartY = e.changedTouches[0].screenY; }, { passive: true });
+  document.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].screenX - touchStartX;
+    const dy = e.changedTouches[0].screenY - touchStartY;
+    if (Math.abs(dx) < 80 || Math.abs(dy) > Math.abs(dx) * 0.5) return;
+    const current = tabOrder.findIndex(t => { const p = document.getElementById('panel-'+t); return p && p.classList.contains('active'); });
+    if (current < 0) return;
+    const isRTL = document.documentElement.dir === 'rtl';
+    let next;
+    if ((dx > 0 && !isRTL) || (dx < 0 && isRTL)) next = current - 1; else next = current + 1;
+    if (next >= 0 && next < tabOrder.length) switchTab(tabOrder[next]);
+  }, { passive: true });
+}
+
+// ═══════════════ INIT ═══════════════
+document.addEventListener('DOMContentLoaded', () => {
+  // Set age mode class
+  document.body.classList.toggle('young-mode', ageMode === 'young');
+  // Update streak
+  updateStreak();
+  // Init
+  initSplash();
+  renderAll();
+  initTabs();
+  initScrollReveal();
+  initScrollTop();
+  initKeyboardNav();
+  initSwipeGestures();
+  initTypewriter();
+});
